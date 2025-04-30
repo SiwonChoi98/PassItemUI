@@ -1,0 +1,1002 @@
+[
+  {
+    "pass_level": 1,
+    "need_exp": 100,
+    "reward_type": 1,
+    "reward_idx": 1,
+    "special_reward_type": 1,
+    "special_reward_idx": 3,
+    "reward_value": 20,
+    "special_reward_value": 60
+  },
+  {
+    "pass_level": 2,
+    "need_exp": 200,
+    "reward_type": 1,
+    "reward_idx": 1,
+    "special_reward_type": 1,
+    "special_reward_idx": 4,
+    "reward_value": 30,
+    "special_reward_value": 90
+  },
+  {
+    "pass_level": 3,
+    "need_exp": 300,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 3,
+    "reward_value": 40,
+    "special_reward_value": 120
+  },
+  {
+    "pass_level": 4,
+    "need_exp": 400,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 4,
+    "reward_value": 50,
+    "special_reward_value": 150
+  },
+  {
+    "pass_level": 5,
+    "need_exp": 500,
+    "reward_type": 1,
+    "reward_idx": 3,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 6,
+    "need_exp": 600,
+    "reward_type": 1,
+    "reward_idx": 4,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 7,
+    "need_exp": 700,
+    "reward_type": 1,
+    "reward_idx": 3,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 8,
+    "need_exp": 800,
+    "reward_type": 1,
+    "reward_idx": 4,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 9,
+    "need_exp": 900,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 2,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 10,
+    "need_exp": 1000,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 40,
+    "special_reward_value": 120
+  },
+  {
+    "pass_level": 11,
+    "need_exp": 1100,
+    "reward_type": 1,
+    "reward_idx": 1,
+    "special_reward_type": 1,
+    "special_reward_idx": 3,
+    "reward_value": 20,
+    "special_reward_value": 60
+  },
+  {
+    "pass_level": 12,
+    "need_exp": 1200,
+    "reward_type": 1,
+    "reward_idx": 1,
+    "special_reward_type": 1,
+    "special_reward_idx": 4,
+    "reward_value": 30,
+    "special_reward_value": 90
+  },
+  {
+    "pass_level": 13,
+    "need_exp": 1300,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 3,
+    "reward_value": 40,
+    "special_reward_value": 120
+  },
+  {
+    "pass_level": 14,
+    "need_exp": 1400,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 4,
+    "reward_value": 50,
+    "special_reward_value": 150
+  },
+  {
+    "pass_level": 15,
+    "need_exp": 1500,
+    "reward_type": 1,
+    "reward_idx": 3,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 16,
+    "need_exp": 1600,
+    "reward_type": 1,
+    "reward_idx": 4,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 17,
+    "need_exp": 1700,
+    "reward_type": 1,
+    "reward_idx": 3,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 18,
+    "need_exp": 1800,
+    "reward_type": 1,
+    "reward_idx": 4,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 19,
+    "need_exp": 1900,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 2,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 20,
+    "need_exp": 2000,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 40,
+    "special_reward_value": 120
+  },
+  {
+    "pass_level": 21,
+    "need_exp": 2100,
+    "reward_type": 1,
+    "reward_idx": 1,
+    "special_reward_type": 1,
+    "special_reward_idx": 3,
+    "reward_value": 20,
+    "special_reward_value": 60
+  },
+  {
+    "pass_level": 22,
+    "need_exp": 2200,
+    "reward_type": 1,
+    "reward_idx": 1,
+    "special_reward_type": 1,
+    "special_reward_idx": 4,
+    "reward_value": 30,
+    "special_reward_value": 90
+  },
+  {
+    "pass_level": 23,
+    "need_exp": 2300,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 3,
+    "reward_value": 40,
+    "special_reward_value": 120
+  },
+  {
+    "pass_level": 24,
+    "need_exp": 2400,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 4,
+    "reward_value": 50,
+    "special_reward_value": 150
+  },
+  {
+    "pass_level": 25,
+    "need_exp": 2500,
+    "reward_type": 1,
+    "reward_idx": 3,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 26,
+    "need_exp": 2600,
+    "reward_type": 1,
+    "reward_idx": 4,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 27,
+    "need_exp": 2700,
+    "reward_type": 1,
+    "reward_idx": 3,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 28,
+    "need_exp": 2800,
+    "reward_type": 1,
+    "reward_idx": 4,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 29,
+    "need_exp": 2900,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 2,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 30,
+    "need_exp": 3000,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 40,
+    "special_reward_value": 120
+  },
+  {
+    "pass_level": 31,
+    "need_exp": 3100,
+    "reward_type": 1,
+    "reward_idx": 1,
+    "special_reward_type": 1,
+    "special_reward_idx": 3,
+    "reward_value": 20,
+    "special_reward_value": 60
+  },
+  {
+    "pass_level": 32,
+    "need_exp": 3200,
+    "reward_type": 1,
+    "reward_idx": 1,
+    "special_reward_type": 1,
+    "special_reward_idx": 4,
+    "reward_value": 30,
+    "special_reward_value": 90
+  },
+  {
+    "pass_level": 33,
+    "need_exp": 3300,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 3,
+    "reward_value": 40,
+    "special_reward_value": 120
+  },
+  {
+    "pass_level": 34,
+    "need_exp": 3400,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 4,
+    "reward_value": 50,
+    "special_reward_value": 150
+  },
+  {
+    "pass_level": 35,
+    "need_exp": 3500,
+    "reward_type": 1,
+    "reward_idx": 3,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 36,
+    "need_exp": 3600,
+    "reward_type": 1,
+    "reward_idx": 4,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 37,
+    "need_exp": 3700,
+    "reward_type": 1,
+    "reward_idx": 3,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 38,
+    "need_exp": 3800,
+    "reward_type": 1,
+    "reward_idx": 4,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 39,
+    "need_exp": 3900,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 2,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 40,
+    "need_exp": 4000,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 40,
+    "special_reward_value": 120
+  },
+  {
+    "pass_level": 41,
+    "need_exp": 4100,
+    "reward_type": 1,
+    "reward_idx": 1,
+    "special_reward_type": 1,
+    "special_reward_idx": 3,
+    "reward_value": 20,
+    "special_reward_value": 60
+  },
+  {
+    "pass_level": 42,
+    "need_exp": 4200,
+    "reward_type": 1,
+    "reward_idx": 1,
+    "special_reward_type": 1,
+    "special_reward_idx": 4,
+    "reward_value": 30,
+    "special_reward_value": 90
+  },
+  {
+    "pass_level": 43,
+    "need_exp": 4300,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 3,
+    "reward_value": 40,
+    "special_reward_value": 120
+  },
+  {
+    "pass_level": 44,
+    "need_exp": 4400,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 4,
+    "reward_value": 50,
+    "special_reward_value": 150
+  },
+  {
+    "pass_level": 45,
+    "need_exp": 4500,
+    "reward_type": 1,
+    "reward_idx": 3,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 46,
+    "need_exp": 4600,
+    "reward_type": 1,
+    "reward_idx": 4,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 47,
+    "need_exp": 4700,
+    "reward_type": 1,
+    "reward_idx": 3,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 48,
+    "need_exp": 4800,
+    "reward_type": 1,
+    "reward_idx": 4,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 49,
+    "need_exp": 4900,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 2,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 50,
+    "need_exp": 5000,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 40,
+    "special_reward_value": 120
+  },
+  {
+    "pass_level": 51,
+    "need_exp": 5100,
+    "reward_type": 1,
+    "reward_idx": 1,
+    "special_reward_type": 1,
+    "special_reward_idx": 3,
+    "reward_value": 20,
+    "special_reward_value": 60
+  },
+  {
+    "pass_level": 52,
+    "need_exp": 5200,
+    "reward_type": 1,
+    "reward_idx": 1,
+    "special_reward_type": 1,
+    "special_reward_idx": 4,
+    "reward_value": 30,
+    "special_reward_value": 90
+  },
+  {
+    "pass_level": 53,
+    "need_exp": 5300,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 3,
+    "reward_value": 40,
+    "special_reward_value": 120
+  },
+  {
+    "pass_level": 54,
+    "need_exp": 5400,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 4,
+    "reward_value": 50,
+    "special_reward_value": 150
+  },
+  {
+    "pass_level": 55,
+    "need_exp": 5500,
+    "reward_type": 1,
+    "reward_idx": 3,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 56,
+    "need_exp": 5600,
+    "reward_type": 1,
+    "reward_idx": 4,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 57,
+    "need_exp": 5700,
+    "reward_type": 1,
+    "reward_idx": 3,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 58,
+    "need_exp": 5800,
+    "reward_type": 1,
+    "reward_idx": 4,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 59,
+    "need_exp": 5900,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 2,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 60,
+    "need_exp": 6000,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 40,
+    "special_reward_value": 120
+  },
+  {
+    "pass_level": 61,
+    "need_exp": 6100,
+    "reward_type": 1,
+    "reward_idx": 1,
+    "special_reward_type": 1,
+    "special_reward_idx": 3,
+    "reward_value": 20,
+    "special_reward_value": 60
+  },
+  {
+    "pass_level": 62,
+    "need_exp": 6200,
+    "reward_type": 1,
+    "reward_idx": 1,
+    "special_reward_type": 1,
+    "special_reward_idx": 4,
+    "reward_value": 30,
+    "special_reward_value": 90
+  },
+  {
+    "pass_level": 63,
+    "need_exp": 6300,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 3,
+    "reward_value": 40,
+    "special_reward_value": 120
+  },
+  {
+    "pass_level": 64,
+    "need_exp": 6400,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 4,
+    "reward_value": 50,
+    "special_reward_value": 150
+  },
+  {
+    "pass_level": 65,
+    "need_exp": 6500,
+    "reward_type": 1,
+    "reward_idx": 3,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 66,
+    "need_exp": 6600,
+    "reward_type": 1,
+    "reward_idx": 4,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 67,
+    "need_exp": 6700,
+    "reward_type": 1,
+    "reward_idx": 3,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 68,
+    "need_exp": 6800,
+    "reward_type": 1,
+    "reward_idx": 4,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 69,
+    "need_exp": 6900,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 2,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 70,
+    "need_exp": 7000,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 40,
+    "special_reward_value": 120
+  },
+  {
+    "pass_level": 71,
+    "need_exp": 7100,
+    "reward_type": 1,
+    "reward_idx": 1,
+    "special_reward_type": 1,
+    "special_reward_idx": 3,
+    "reward_value": 20,
+    "special_reward_value": 60
+  },
+  {
+    "pass_level": 72,
+    "need_exp": 7200,
+    "reward_type": 1,
+    "reward_idx": 1,
+    "special_reward_type": 1,
+    "special_reward_idx": 4,
+    "reward_value": 30,
+    "special_reward_value": 90
+  },
+  {
+    "pass_level": 73,
+    "need_exp": 7300,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 3,
+    "reward_value": 40,
+    "special_reward_value": 120
+  },
+  {
+    "pass_level": 74,
+    "need_exp": 7400,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 4,
+    "reward_value": 50,
+    "special_reward_value": 150
+  },
+  {
+    "pass_level": 75,
+    "need_exp": 7500,
+    "reward_type": 1,
+    "reward_idx": 3,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 76,
+    "need_exp": 7600,
+    "reward_type": 1,
+    "reward_idx": 4,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 77,
+    "need_exp": 7700,
+    "reward_type": 1,
+    "reward_idx": 3,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 78,
+    "need_exp": 7800,
+    "reward_type": 1,
+    "reward_idx": 4,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 79,
+    "need_exp": 7900,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 2,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 80,
+    "need_exp": 8000,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 40,
+    "special_reward_value": 120
+  },
+  {
+    "pass_level": 81,
+    "need_exp": 8100,
+    "reward_type": 1,
+    "reward_idx": 1,
+    "special_reward_type": 1,
+    "special_reward_idx": 3,
+    "reward_value": 20,
+    "special_reward_value": 60
+  },
+  {
+    "pass_level": 82,
+    "need_exp": 8200,
+    "reward_type": 1,
+    "reward_idx": 1,
+    "special_reward_type": 1,
+    "special_reward_idx": 4,
+    "reward_value": 30,
+    "special_reward_value": 90
+  },
+  {
+    "pass_level": 83,
+    "need_exp": 8300,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 3,
+    "reward_value": 40,
+    "special_reward_value": 120
+  },
+  {
+    "pass_level": 84,
+    "need_exp": 8400,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 4,
+    "reward_value": 50,
+    "special_reward_value": 150
+  },
+  {
+    "pass_level": 85,
+    "need_exp": 8500,
+    "reward_type": 1,
+    "reward_idx": 3,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 86,
+    "need_exp": 8600,
+    "reward_type": 1,
+    "reward_idx": 4,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 87,
+    "need_exp": 8700,
+    "reward_type": 1,
+    "reward_idx": 3,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 88,
+    "need_exp": 8800,
+    "reward_type": 1,
+    "reward_idx": 4,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 89,
+    "need_exp": 8900,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 2,
+    "reward_value": 25,
+    "special_reward_value": 75
+  },
+  {
+    "pass_level": 90,
+    "need_exp": 9000,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 40,
+    "special_reward_value": 120
+  },
+  {
+    "pass_level": 91,
+    "need_exp": 9100,
+    "reward_type": 1,
+    "reward_idx": 1,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 45,
+    "special_reward_value": 135
+  },
+  {
+    "pass_level": 92,
+    "need_exp": 9200,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 50,
+    "special_reward_value": 150
+  },
+  {
+    "pass_level": 93,
+    "need_exp": 9300,
+    "reward_type": 1,
+    "reward_idx": 3,
+    "special_reward_type": 1,
+    "special_reward_idx": 2,
+    "reward_value": 50,
+    "special_reward_value": 150
+  },
+  {
+    "pass_level": 94,
+    "need_exp": 9400,
+    "reward_type": 1,
+    "reward_idx": 1,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 55,
+    "special_reward_value": 165
+  },
+  {
+    "pass_level": 95,
+    "need_exp": 9500,
+    "reward_type": 1,
+    "reward_idx": 1,
+    "special_reward_type": 1,
+    "special_reward_idx": 3,
+    "reward_value": 60,
+    "special_reward_value": 180
+  },
+  {
+    "pass_level": 96,
+    "need_exp": 9600,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 4,
+    "reward_value": 60,
+    "special_reward_value": 180
+  },
+  {
+    "pass_level": 97,
+    "need_exp": 9700,
+    "reward_type": 1,
+    "reward_idx": 3,
+    "special_reward_type": 1,
+    "special_reward_idx": 3,
+    "reward_value": 70,
+    "special_reward_value": 210
+  },
+  {
+    "pass_level": 98,
+    "need_exp": 9800,
+    "reward_type": 1,
+    "reward_idx": 4,
+    "special_reward_type": 1,
+    "special_reward_idx": 4,
+    "reward_value": 85,
+    "special_reward_value": 255
+  },
+  {
+    "pass_level": 99,
+    "need_exp": 9900,
+    "reward_type": 1,
+    "reward_idx": 2,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 90,
+    "special_reward_value": 270
+  },
+  {
+    "pass_level": 100,
+    "need_exp": 10000,
+    "reward_type": 1,
+    "reward_idx": 1,
+    "special_reward_type": 1,
+    "special_reward_idx": 1,
+    "reward_value": 100,
+    "special_reward_value": 300
+  }
+]

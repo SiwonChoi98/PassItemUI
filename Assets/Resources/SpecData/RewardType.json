@@ -1,0 +1,22 @@
+[
+  {
+    "reward_type": 1,
+    "reward_idx": 1,
+    "icon": "HUD_Icon_Goods_GameMoney"
+  },
+  {
+    "reward_type": 1,
+    "reward_idx": 2,
+    "icon": "HUD_Icon_Goods_Gem"
+  },
+  {
+    "reward_type": 1,
+    "reward_idx": 3,
+    "icon": "HUD_Icon_Goods_Upgrade"
+  },
+  {
+    "reward_type": 1,
+    "reward_idx": 4,
+    "icon": "HUD_Icon_Goods_LevelUpPoint"
+  }
+]
