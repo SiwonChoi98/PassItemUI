@@ -9,3 +9,8 @@ public enum Reward_Type
     FISH = 3,
     LEVELUP_POINT = 4,
 }
+
+public enum PoolObjectType
+{
+    
+}
