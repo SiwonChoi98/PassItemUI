@@ -14,7 +14,8 @@ public partial class SpecDataManager
     private SerializedDictionary<string, RewardTypeData> _rewardTypeDataDic = new SerializedDictionary<string, RewardTypeData>();
     [SerializedDictionary("key", "data")]
     private SerializedDictionary<int, PassInfoData> _passInfoDataDic = new SerializedDictionary<int, PassInfoData>();
-    
+
+    public int PassInfoCount => _passInfoDataDic.Count;
     public DefineData GetDefineData(string key)
     {
         if (_defineDataDic.TryGetValue(key, out var data))
