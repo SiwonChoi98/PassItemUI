@@ -20,6 +20,10 @@ public class LumberPassUI : MonoBehaviour
         
         _scrollRect.onValueChanged.AddListener(_ => OnScrollChanged());
     }
+    private void SetData(ItemLumberPass item, int key)
+    {
+        item.SetData(SpecDataManager.Instance.GetPassInfoData(key));
+    }
     private void SpawnItem()
     {
         _itemHeight = _baseItemLumberPassPrefab.GetComponent<RectTransform>().rect.height;
@@ -60,11 +64,6 @@ public class LumberPassUI : MonoBehaviour
         }
 
         return false;
-    }
-
-    private void SetData(ItemLumberPass item, int key)
-    {
-        item.SetData(SpecDataManager.Instance.GetPassInfoData(key));
     }
     private void OnScrollChanged()
     {

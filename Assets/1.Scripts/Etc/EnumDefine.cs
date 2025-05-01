@@ -12,5 +12,5 @@ public enum Reward_Type
 
 public enum PoolObjectType
 {
-    
+    CURRENCY_OBJ = 1001,   
 }

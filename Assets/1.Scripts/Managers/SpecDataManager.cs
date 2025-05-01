@@ -8,11 +8,8 @@ public partial class SpecDataManager
     private const string specRewardTypeDataPath = "SpecData/RewardType";
     private const string specPassInfoDataPath = "SpecData/Pass_Info";
     
-    [SerializedDictionary("key", "data")]
     private SerializedDictionary<string, DefineData> _defineDataDic = new SerializedDictionary<string, DefineData>();
-    [SerializedDictionary("key", "data")]
     private SerializedDictionary<string, RewardTypeData> _rewardTypeDataDic = new SerializedDictionary<string, RewardTypeData>();
-    [SerializedDictionary("key", "data")]
     private SerializedDictionary<int, PassInfoData> _passInfoDataDic = new SerializedDictionary<int, PassInfoData>();
 
     public int PassInfoCount => _passInfoDataDic.Count;
@@ -65,7 +62,11 @@ public partial class SpecDataManager : Singleton<SpecDataManager>
     private void LoadDefineData()
     {
         TextAsset text = Resources.Load<TextAsset>(specDefineDataPath);
-        if (text == null) { Debug.LogError("DefineData.json not found!"); return; }
+        if (text == null)
+        {
+            Debug.LogError("DefineData.json not found!"); 
+            return;
+        }
 
         List<DefineData> list = JsonUtilityWrapper.FromJsonList<DefineData>(text.text);
         foreach (var data in list)
@@ -77,7 +78,11 @@ public partial class SpecDataManager : Singleton<SpecDataManager>
     private void LoadRewardTypeData()
     {
         TextAsset text = Resources.Load<TextAsset>(specRewardTypeDataPath);
-        if (text == null) { Debug.LogError("RewardTypeData.json not found!"); return; }
+        if (text == null)
+        {
+            Debug.LogError("RewardTypeData.json not found!"); 
+            return;
+        }
 
         List<RewardTypeData> list = JsonUtilityWrapper.FromJsonList<RewardTypeData>(text.text);
         foreach (var data in list)
@@ -90,7 +95,11 @@ public partial class SpecDataManager : Singleton<SpecDataManager>
     private void LoadPassInfoData()
     {
         TextAsset text = Resources.Load<TextAsset>(specPassInfoDataPath);
-        if (text == null) { Debug.LogError("PassInfoData.json not found!"); return; }
+        if (text == null)
+        {
+            Debug.LogError("PassInfoData.json not found!"); 
+            return;
+        }
 
         List<PassInfoData> list = JsonUtilityWrapper.FromJsonList<PassInfoData>(text.text);
         foreach (var data in list)
