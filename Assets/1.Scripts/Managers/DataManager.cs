@@ -48,6 +48,22 @@ public partial class DataManager
 
         SaveUserDataAsync().Forget();
     }
+    
+    public int GetCurrency(CurrencyDataType currencyDataType)
+    {
+        switch (currencyDataType)
+        {
+            case CurrencyDataType.GOLD:
+                return _userData.CurrencyData.GameMoney;
+            case CurrencyDataType.GEM:
+                return _userData.CurrencyData.Gem;
+            case CurrencyDataType.FISH:
+                return _userData.CurrencyData.Upgrade;
+            case CurrencyDataType.LEVELUP_POINT:
+                return _userData.CurrencyData.LevelUpPoint;
+        }
+        return 0;
+    }
 
     public void AddPass(PassDataType passDataType, int amount)
     {
@@ -71,21 +87,21 @@ public partial class DataManager
         _userData.PassData.IsSpecialPassEnabled = true;
         SaveUserDataAsync().Forget();
     }
-    public void ClaimReward(PassDataType type, int rewardId)
+    public void ClaimReward(PassDataType type, int level)
     {
         switch (type)
         {
             case PassDataType.REWARD_RECEIVED:
-                if (!_userData.PassData.RewardsReceivedDic.ContainsKey(rewardId))
+                if (!_userData.PassData.RewardsReceivedDic.ContainsKey(level))
                 {
-                    _userData.PassData.RewardsReceivedDic.Add(rewardId, true);
+                    _userData.PassData.RewardsReceivedDic.Add(level, true);
                 }
                 break;
 
             case PassDataType.SPECIALREWARD_RECEIVED:
-                if (!_userData.PassData.SpecialRewardsReceivedDic.ContainsKey(rewardId))
+                if (!_userData.PassData.SpecialRewardsReceivedDic.ContainsKey(level))
                 {
-                    _userData.PassData.SpecialRewardsReceivedDic.Add(rewardId, true);
+                    _userData.PassData.SpecialRewardsReceivedDic.Add(level, true);
                 }
                 break;
 
@@ -148,7 +164,7 @@ public partial class DataManager : Singleton<DataManager>
         _userDataPath = Path.Combine(Application.persistentDataPath, "userData.json");
 
         //삭제
-        //DeleteUserData();
+        //DeleteUserDataAsync().Forget();
         
         //로드
         LoadUserDataAsync().Forget();
@@ -162,6 +178,11 @@ public partial class DataManager : Singleton<DataManager>
         {
             CurrencyData = new CurrencyData(),
             PassData = new PassData()
+            {
+                IsSpecialPassEnabled = false,
+                PassExp = 0,
+                PassLevel = 1,
+            }
         };
         
         SaveUserDataAsync().Forget();

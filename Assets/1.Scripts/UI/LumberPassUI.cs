@@ -1,31 +1,77 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class LumberPassUI : MonoBehaviour
 {
+    [Header("Currency")] 
+    [SerializeField] private Text _gameMoneyText;
+    [SerializeField] private Text _gemText;
+    [SerializeField] private Text _upgradeText;
+    [SerializeField] private Text _LevelUpPointText;
+
+    private Action<CurrencyDataType> _onChangedCurrency;
+    
+    [Header("PassLevel")] 
+    [SerializeField] private Text _passLevelText;
+    [SerializeField] private Text _passExpText;
+    [SerializeField] private Image _passExpImage;
+    
+    [Header("PassItem")]
     [SerializeField] private ItemLumberPass _baseItemLumberPassPrefab;
     [SerializeField] private ScrollRect _scrollRect;
-
     private List<ItemLumberPass> _itemList;
     private float _offset;
     private float _itemHeight;
-    private void Start()
+    
+    [Header("PremiumPass")] 
+    [SerializeField] private Button _premiumPassBtn;
+    private async void Start()
     {
+        await UniTask.WaitUntil(() => DataManager.Instance != null && DataManager.Instance.UserData != null);
+
+        SetLumberPassData();
         SpawnItem();
         SetContentHeight();
-        
+
         _scrollRect.onValueChanged.AddListener(_ => OnScrollChanged());
+        _premiumPassBtn.onClick.AddListener(Btn_BuyPremiumPass);
+
+        _onChangedCurrency += UpdateCurrency;
     }
-    private void SetData(ItemLumberPass item, int key)
+    
+    private void SetLumberPassData()
     {
-        item.SetData(SpecDataManager.Instance.GetPassInfoData(key));
+        UserData userData = DataManager.Instance.UserData;
+        
+        _passLevelText.text = "Rank : " + userData.PassData.PassLevel;
+        
+        if (userData.PassData.IsSpecialPassEnabled)
+        {
+            _premiumPassBtn.gameObject.SetActive(false);
+        }
+        
+        //specData에서 가져와야할듯?
+        //_passExpText.text = userData.PassData.PassExp.ToString();
+        //_passExpImage.fillAmount = 
+    }
+    private void SetItemData(ItemLumberPass item, int key)
+    {
+        PassInfoData passInfoData = SpecDataManager.Instance.GetPassInfoData(key);
+        
+        item.SetData(passInfoData);
+        
+        item.OnRewardReceived = () => UpdateCurrency((CurrencyDataType)passInfoData.reward_idx);
+        item.OnSpecialRewardReceived = () => UpdateCurrency((CurrencyDataType)passInfoData.special_reward_idx);
     }
     private void SpawnItem()
     {
+        Debug.Log("SpawnItem");
         _itemHeight = _baseItemLumberPassPrefab.GetComponent<RectTransform>().rect.height;
         
         RectTransform scrollRect = _scrollRect.GetComponent<RectTransform>();
@@ -39,7 +85,7 @@ public class LumberPassUI : MonoBehaviour
             item.transform.localPosition = new Vector3(0, -i * _itemHeight);
             
             _itemList.Add(item);
-            SetData(item, i+1);
+            SetItemData(item, i+1);
         }
 
         _offset = _itemList.Count * _itemHeight;
@@ -77,8 +123,47 @@ public class LumberPassUI : MonoBehaviour
             if (changed)
             {
                 int idx = (int)(-item.transform.localPosition.y / _itemHeight);
-                SetData(item, idx + 1);
+                SetItemData(item, idx + 1);
             }
         }
+    }
+
+    private void Btn_BuyPremiumPass()
+    {
+        UserData userData = DataManager.Instance.UserData;
+        if (userData.PassData.IsSpecialPassEnabled)
+            return;
+
+        DataManager.Instance.BuySpecialPass();
+        _premiumPassBtn.gameObject.SetActive(false);
+        
+        Debug.Log("Buy Premium Pass");
+    }
+
+    private void UpdateCurrency(CurrencyDataType currencyDataType)
+    {
+        int currency = DataManager.Instance.GetCurrency(currencyDataType);
+        switch (currencyDataType)
+        {
+            case CurrencyDataType.GOLD:
+                _gameMoneyText.text = currency.ToString();
+                break;
+            case CurrencyDataType.GEM:
+                _gemText.text = currency.ToString();
+                break;
+            case CurrencyDataType.FISH:
+                _upgradeText.text = currency.ToString();
+                break;
+            case CurrencyDataType.LEVELUP_POINT:
+                _LevelUpPointText.text = currency.ToString();
+                break;
+        }
+    }
+    
+    private void OnDestroy()
+    {
+        _scrollRect.onValueChanged.RemoveListener(_ => OnScrollChanged());
+        _premiumPassBtn.onClick.RemoveListener(Btn_BuyPremiumPass);
+        _onChangedCurrency -= UpdateCurrency;
     }
 }

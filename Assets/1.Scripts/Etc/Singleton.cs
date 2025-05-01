@@ -4,6 +4,7 @@ using UnityEngine;
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     [SerializeField] private bool _isDontDestroy;
+    public static bool IsInitialized => instance != null;
     protected bool IsDonDestroy
     {
         get => _isDontDestroy;
@@ -16,7 +17,12 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         {
             if (instance == null)
             {
-                Debug.LogWarning($"[Singleton<{typeof(T)}>] Instance is null. Make Instance");
+                instance = FindObjectOfType<T>();
+                if (instance == null)
+                {
+                    var go = new GameObject(typeof(T).Name);
+                    instance = go.AddComponent<T>();
+                }
             }
             return instance;
         }
