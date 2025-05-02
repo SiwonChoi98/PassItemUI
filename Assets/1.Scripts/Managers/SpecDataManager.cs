@@ -51,7 +51,7 @@ public partial class SpecDataManager : Singleton<SpecDataManager>
     }
     
     
-    //스펙 데이터 로드
+    //Local 스펙 데이터 로드
     public void LoadSpecDataAll()
     {
         LoadDefineData();
