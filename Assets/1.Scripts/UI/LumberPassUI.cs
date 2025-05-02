@@ -2,8 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -20,7 +20,7 @@ public class LumberPassUI : MonoBehaviour
     [Header("PassLevel")] 
     [SerializeField] private Text _passLevelText;
     [SerializeField] private Text _passExpText;
-    [SerializeField] private Image _passExpImage;
+    [SerializeField] private Slider _passExpSlider;
     
     [Header("PassItem")]
     [SerializeField] private ItemLumberPass _baseItemLumberPassPrefab;
@@ -49,6 +49,11 @@ public class LumberPassUI : MonoBehaviour
     {
         UserData userData = DataManager.Instance.UserData;
         
+        _gameMoneyText.text = userData.CurrencyData.GameMoney.ToString();
+        _gemText.text = userData.CurrencyData.Gem.ToString();
+        _upgradeText.text = userData.CurrencyData.Upgrade.ToString();
+        _upgradeText.text = userData.CurrencyData.LevelUpPoint.ToString();
+        
         _passLevelText.text = "Rank : " + userData.PassData.PassLevel;
         
         if (userData.PassData.IsSpecialPassEnabled)
@@ -56,9 +61,10 @@ public class LumberPassUI : MonoBehaviour
             _premiumPassBtn.gameObject.SetActive(false);
         }
         
-        //specData에서 가져와야할듯?
-        //_passExpText.text = userData.PassData.PassExp.ToString();
-        //_passExpImage.fillAmount = 
+        float userPassExp = userData.PassData.PassExp;
+        float userNextLevelNeedExp = SpecDataManager.Instance.GetPassInfoData(userData.PassData.PassLevel).need_exp;
+        _passExpText.text = $"<color=#FFFFEB>{userPassExp}</color><color=#FFFFEB>/{userNextLevelNeedExp}</color>";
+        _passExpSlider.value = userPassExp / userNextLevelNeedExp;
     }
     private void SetItemData(ItemLumberPass item, int key)
     {
@@ -136,8 +142,18 @@ public class LumberPassUI : MonoBehaviour
 
         DataManager.Instance.BuySpecialPass();
         _premiumPassBtn.gameObject.SetActive(false);
+
+        SetItemListLockImage();
         
         Debug.Log("Buy Premium Pass");
+    }
+
+    private void SetItemListLockImage()
+    {
+        for (int i = 0; i < _itemList.Count; i++)
+        {
+            _itemList[i].SetLockImage();
+        }
     }
 
     private void UpdateCurrency(CurrencyDataType currencyDataType)

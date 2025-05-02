@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,6 +30,10 @@ public class ItemLumberPass : MonoBehaviour
     public Action OnSpecialRewardReceived;
     public void Btn_RewardReceive()
     {
+        bool isReceived = DataManager.Instance.IsRewardReceived(PassDataType.REWARD_RECEIVED, _data.pass_level);
+        if (isReceived)
+            return;
+        
         if (_data.pass_level > DataManager.Instance.UserData.PassData.PassLevel)
         {
             Debug.Log("레벨이 부족합니다.");
@@ -41,7 +43,9 @@ public class ItemLumberPass : MonoBehaviour
         //data
         DataManager.Instance.ClaimReward(PassDataType.REWARD_RECEIVED, _data.pass_level);
         DataManager.Instance.AddCurrency((CurrencyDataType)_data.reward_idx, _data.reward_value);
+        
         //ui
+        SetCheckImage();
         OnRewardReceived?.Invoke();
 
         Debug.Log("rewardReceive : " + _data.pass_level);
@@ -49,6 +53,10 @@ public class ItemLumberPass : MonoBehaviour
 
     public void Btn_SpecialRewardReceive()
     {
+        bool isReceived = DataManager.Instance.IsRewardReceived(PassDataType.SPECIALREWARD_RECEIVED, _data.pass_level);
+        if (isReceived)
+            return;
+        
         if (_data.pass_level > DataManager.Instance.UserData.PassData.PassLevel)
         {
             Debug.Log("레벨이 부족합니다.");
@@ -58,7 +66,9 @@ public class ItemLumberPass : MonoBehaviour
         //data
         DataManager.Instance.ClaimReward(PassDataType.SPECIALREWARD_RECEIVED, _data.pass_level);
         DataManager.Instance.AddCurrency((CurrencyDataType)_data.special_reward_idx, _data.special_reward_value);
+        
         //ui
+        SetCheckImage();
         OnSpecialRewardReceived?.Invoke();
         
         Debug.Log("specialRewardReceive : " + _data.pass_level);
@@ -76,9 +86,26 @@ public class ItemLumberPass : MonoBehaviour
         _rewardImage.sprite = SetRewardSprite(_data.reward_idx);
         _specialRewardImage.sprite = SetRewardSprite(_data.special_reward_idx);
 
-        SetLockImage(_data);
-        SetCheckImage(_data);
+        SetLockImage();
+        SetCheckImage();
     }
+    
+    public void SetLockImage()
+    {
+        if(DataManager.Instance == null)
+            return;
+        
+        UserData userData = DataManager.Instance.UserData;
+        
+        bool isRockShow = userData.PassData.PassLevel < _data.pass_level;
+        _rewardRockImage.gameObject.SetActive(isRockShow);
+
+        bool isSpecialRockShow =
+            (userData.PassData.PassLevel < _data.pass_level) || userData.PassData.IsSpecialPassEnabled == false;
+        
+        _specialRewardRockImage.gameObject.SetActive(isSpecialRockShow);
+    }
+    
 
     private Sprite SetRewardSprite(int rewardIndex)
     {
@@ -90,29 +117,13 @@ public class ItemLumberPass : MonoBehaviour
         Debug.LogError("RewardSprite is Null");
         return null;
     }
-
-    private void SetLockImage(PassInfoData data)
+    
+    private void SetCheckImage()
     {
-        if(DataManager.Instance == null)
-            return;
-        
-        UserData userData = DataManager.Instance.UserData;
-        
-        bool isRockShow = userData.PassData.PassLevel < data.pass_level;
-        _rewardRockImage.gameObject.SetActive(isRockShow);
-
-        bool isSpecialRockShow =
-            (userData.PassData.PassLevel < data.pass_level) || userData.PassData.IsSpecialPassEnabled == false;
-        
-        _specialRewardRockImage.gameObject.SetActive(isSpecialRockShow);
-    }
-
-    private void SetCheckImage(PassInfoData data)
-    {
-        bool isRewardCheckImage = DataManager.Instance.IsRewardReceived(PassDataType.REWARD_RECEIVED, data.pass_level);
+        bool isRewardCheckImage = DataManager.Instance.IsRewardReceived(PassDataType.REWARD_RECEIVED, _data.pass_level);
         _rewardCheckImage.gameObject.SetActive(isRewardCheckImage);
         
-        bool isSpecialRewardCheckImage = DataManager.Instance.IsRewardReceived(PassDataType.SPECIALREWARD_RECEIVED, data.pass_level);
+        bool isSpecialRewardCheckImage = DataManager.Instance.IsRewardReceived(PassDataType.SPECIALREWARD_RECEIVED, _data.pass_level);
         _specialrewardCheckImage.gameObject.SetActive(isSpecialRewardCheckImage);
     }
     

@@ -46,7 +46,7 @@ public partial class DataManager
                 break;
         }
 
-        SaveUserDataAsync().Forget();
+        SaveUserData();
     }
     
     public int GetCurrency(CurrencyDataType currencyDataType)
@@ -76,7 +76,7 @@ public partial class DataManager
                 AddPassExp(amount);
                 break;
         }
-        SaveUserDataAsync().Forget();
+        SaveUserData();
     }
 
     public void BuySpecialPass()
@@ -85,7 +85,7 @@ public partial class DataManager
             return;
         
         _userData.PassData.IsSpecialPassEnabled = true;
-        SaveUserDataAsync().Forget();
+        SaveUserData();
     }
     public void ClaimReward(PassDataType type, int level)
     {
@@ -108,7 +108,8 @@ public partial class DataManager
             default:
                 break;
         }
-        SaveUserDataAsync().Forget();
+
+        SaveUserData();
     }
     
     public bool IsRewardReceived(PassDataType type, int rewardId)
@@ -157,7 +158,7 @@ public partial class DataManager
 
 public partial class DataManager : Singleton<DataManager>
 {
-    private string _userDataPath;
+    [SerializeField] private string _userDataPath;
     
     protected override void Awake()
     {
@@ -184,17 +185,15 @@ public partial class DataManager : Singleton<DataManager>
                 PassLevel = 1,
             }
         };
-        
-        SaveUserDataAsync().Forget();
+
+        SaveUserData();
     }
 
     //유저 데이터 저장
-    public async UniTask SaveUserDataAsync()
+    public void SaveUserData()
     {
         string jsonData = JsonConvert.SerializeObject(_userData, Formatting.Indented);
-        
-        // 비동기로 파일 쓰기
-        await UniTask.Run(() => File.WriteAllText(_userDataPath, jsonData));
+        File.WriteAllText(_userDataPath, jsonData);
         Debug.Log("User Data Saved");
     }
 
