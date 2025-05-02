@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using Progress = UnityEditor.Progress;
 
 public class LumberPassUI : MonoBehaviour
 {
@@ -44,6 +45,16 @@ public class LumberPassUI : MonoBehaviour
 
         _onChangedCurrency += UpdateCurrency;
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            DataManager.Instance.AddPass(PassDataType.EXP, 50);
+            SetPassLevelData();
+            SetItemListLockImage();
+        }
+    }
     
     private void SetLumberPassData()
     {
@@ -54,12 +65,19 @@ public class LumberPassUI : MonoBehaviour
         _upgradeText.text = userData.CurrencyData.Upgrade.ToString();
         _upgradeText.text = userData.CurrencyData.LevelUpPoint.ToString();
         
-        _passLevelText.text = "Rank : " + userData.PassData.PassLevel;
-        
         if (userData.PassData.IsSpecialPassEnabled)
         {
             _premiumPassBtn.gameObject.SetActive(false);
         }
+
+        SetPassLevelData();
+    }
+
+    private void SetPassLevelData()
+    {
+        UserData userData = DataManager.Instance.UserData;
+        
+        _passLevelText.text = "Rank : " + userData.PassData.PassLevel;
         
         float userPassExp = userData.PassData.PassExp;
         float userNextLevelNeedExp = SpecDataManager.Instance.GetPassInfoData(userData.PassData.PassLevel).need_exp;
@@ -71,10 +89,44 @@ public class LumberPassUI : MonoBehaviour
         PassInfoData passInfoData = SpecDataManager.Instance.GetPassInfoData(key);
         
         item.SetData(passInfoData);
+        //SetItemLevelLine(passInfoData, item);
         
         item.OnRewardReceived = () => UpdateCurrency((CurrencyDataType)passInfoData.reward_idx);
         item.OnSpecialRewardReceived = () => UpdateCurrency((CurrencyDataType)passInfoData.special_reward_idx);
     }
+
+    /*private void SetItemLevelLine(PassInfoData passInfoData, ItemLumberPass item)
+    {
+        UserData userData = DataManager.Instance.UserData;
+        
+        int currentLevel = userData.PassData.PassLevel;
+        int currentExp = userData.PassData.PassExp;
+    
+        if (passInfoData.pass_level == currentLevel)
+        {
+            int needExp = SpecDataManager.Instance.GetPassInfoData(currentLevel).need_exp;
+    
+            float t = (float)currentExp / needExp; // 현재 경험치 비율 (0.0 ~ 1.0)
+    
+            // 예: 이전 0.5 기준으로 레벨 라인을 표시하고 싶다면...
+            float from = 0.5f;  // 이전 레벨 절반
+            float to = 1f;      // 현재 레벨까지
+    
+            float fill = Mathf.Lerp(from, to, t); // 레벨 반~전체까지 보간
+    
+            item.SetLevelLine(fill, 1f);
+        }
+        else if (passInfoData.pass_level < currentLevel)
+        {
+            // 이미 지난 레벨이면 항상 가득 찬 상태
+            item.SetLevelLine(1f, 1f);
+        }
+        else
+        {
+            // 아직 도달하지 않은 레벨이면 0
+            item.SetLevelLine(0f, 1f);
+        }
+    }*/
     private void SpawnItem()
     {
         Debug.Log("SpawnItem");

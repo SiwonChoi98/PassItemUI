@@ -5,11 +5,11 @@ using UnityEngine.UI;
 public class ItemLumberPass : MonoBehaviour
 {
     private PassInfoData _data;
+    public PassInfoData Data => _data;
     
     [Header("Level")] 
     [SerializeField] private Text _disabledLevelText;
     [SerializeField] private Text _enabledLevelText;
-    [SerializeField] private Image _levelLineDisabledImage;
     [SerializeField] private Image _levelLineEnabledImage;
     [SerializeField] private GameObject _currentLevelEnabled;
     
@@ -57,6 +57,9 @@ public class ItemLumberPass : MonoBehaviour
         if (isReceived)
             return;
         
+        if (!DataManager.Instance.UserData.PassData.IsSpecialPassEnabled)
+            return;
+        
         if (_data.pass_level > DataManager.Instance.UserData.PassData.PassLevel)
         {
             Debug.Log("레벨이 부족합니다.");
@@ -88,6 +91,7 @@ public class ItemLumberPass : MonoBehaviour
 
         SetLockImage();
         SetCheckImage();
+        SetLineLevelImage();
     }
     
     public void SetLockImage()
@@ -104,6 +108,17 @@ public class ItemLumberPass : MonoBehaviour
             (userData.PassData.PassLevel < _data.pass_level) || userData.PassData.IsSpecialPassEnabled == false;
         
         _specialRewardRockImage.gameObject.SetActive(isSpecialRockShow);
+    }
+
+    public void SetLevelLine(float current, float max)
+    {
+        _levelLineEnabledImage.fillAmount = current / max;
+
+        if (_levelLineEnabledImage.fillAmount >= 0.5f)
+        {
+            _currentLevelEnabled.SetActive(true);
+        }
+        else _currentLevelEnabled.SetActive(false);
     }
     
 
@@ -126,5 +141,14 @@ public class ItemLumberPass : MonoBehaviour
         bool isSpecialRewardCheckImage = DataManager.Instance.IsRewardReceived(PassDataType.SPECIALREWARD_RECEIVED, _data.pass_level);
         _specialrewardCheckImage.gameObject.SetActive(isSpecialRewardCheckImage);
     }
+
+    private void SetLineLevelImage()
+    {
+        UserData userData = DataManager.Instance.UserData;
+
+        bool isLineLevelEnable = userData.PassData.PassLevel >= _data.pass_level;
+        _currentLevelEnabled.SetActive(isLineLevelEnable);
+    }
+    
     
 }

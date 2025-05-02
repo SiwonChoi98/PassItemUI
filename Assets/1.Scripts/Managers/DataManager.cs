@@ -137,7 +137,25 @@ public partial class DataManager
     private void AddPassExp(int amount)
     {
         _userData.PassData.PassExp += amount;
+
+        if (SpecDataManager.Instance == null)
+            return;
+
+        int userExp = _userData.PassData.PassExp;
+        int needExp = SpecDataManager.Instance.GetPassInfoData(_userData.PassData.PassLevel).need_exp;
+
+        if (userExp >= needExp)
+        {
+            AddPassLevel(1);
+            InitPassExp(userExp - needExp);
+        }
     }
+
+    private void InitPassExp(int amount)
+    {
+        _userData.PassData.PassExp = Math.Min(0, amount);
+    }
+    
     private void AddGold(int amount)
     {
         _userData.CurrencyData.GameMoney += amount;

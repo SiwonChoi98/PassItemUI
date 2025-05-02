@@ -241,7 +241,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _disabledLevelText: {fileID: 8675954462748249873}
   _enabledLevelText: {fileID: 3299990862153486353}
-  _levelLineDisabledImage: {fileID: 8785029036860363391}
   _levelLineEnabledImage: {fileID: 7932095926700255823}
   _currentLevelEnabled: {fileID: 2523277378049706725}
   _rewardValueText: {fileID: 3274931648507244905}
@@ -856,17 +855,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7830188878274899093, guid: df7fb87ced1aae944a9ec1af0b7a42f4, type: 3}
   m_PrefabInstance: {fileID: 727056476260677103}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8785029036860363391 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8358038099915696016, guid: df7fb87ced1aae944a9ec1af0b7a42f4, type: 3}
-  m_PrefabInstance: {fileID: 727056476260677103}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &911204150203047789
 PrefabInstance:
   m_ObjectHideFlags: 0
