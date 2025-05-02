@@ -92,6 +92,14 @@ public class ItemLumberPass : MonoBehaviour
         SetLockImage();
         SetCheckImage();
         SetLineLevelImage();
+        SetLevelLine();
+    }
+    public void SetLineLevelImage()
+    {
+        UserData userData = DataManager.Instance.UserData;
+
+        bool isLineLevelEnable = userData.PassData.PassLevel >= _data.pass_level;
+        _currentLevelEnabled.SetActive(isLineLevelEnable);
     }
     
     public void SetLockImage()
@@ -110,18 +118,35 @@ public class ItemLumberPass : MonoBehaviour
         _specialRewardRockImage.gameObject.SetActive(isSpecialRockShow);
     }
 
-    public void SetLevelLine(float current, float max)
+    public void SetLevelLine()
+    {
+        UserData userData = DataManager.Instance.UserData;
+        int userLevel = userData.PassData.PassLevel;
+
+        float userExp = userData.PassData.PassExp;
+        float needExp = _data.need_exp;
+        
+        //user = 3 - item 2 부터는 그냥 꺼주면 됨
+        if (userLevel < _data.pass_level)
+        {
+            SetLevelLineFill(0, 1);
+        }
+        else if (userLevel > _data.pass_level)
+        {
+            SetLevelLineFill(1, 1);
+        }
+        else
+        {
+            SetLevelLineFill(0.5f, 1);
+        }
+        
+    }
+
+    private void SetLevelLineFill(float current, float max)
     {
         _levelLineEnabledImage.fillAmount = current / max;
-
-        if (_levelLineEnabledImage.fillAmount >= 0.5f)
-        {
-            _currentLevelEnabled.SetActive(true);
-        }
-        else _currentLevelEnabled.SetActive(false);
     }
     
-
     private Sprite SetRewardSprite(int rewardIndex)
     {
         if (ResourceManager.Instance.RewardResourceDatas.RewardSpriteDic.TryGetValue((Reward_Type)rewardIndex, out var rewardSprite))
@@ -141,14 +166,5 @@ public class ItemLumberPass : MonoBehaviour
         bool isSpecialRewardCheckImage = DataManager.Instance.IsRewardReceived(PassDataType.SPECIALREWARD_RECEIVED, _data.pass_level);
         _specialrewardCheckImage.gameObject.SetActive(isSpecialRewardCheckImage);
     }
-
-    private void SetLineLevelImage()
-    {
-        UserData userData = DataManager.Instance.UserData;
-
-        bool isLineLevelEnable = userData.PassData.PassLevel >= _data.pass_level;
-        _currentLevelEnabled.SetActive(isLineLevelEnable);
-    }
-    
     
 }

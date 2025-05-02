@@ -44,6 +44,26 @@ public class LumberPassUI : MonoBehaviour
         _premiumPassBtn.onClick.AddListener(Btn_BuyPremiumPass);
 
         _onChangedCurrency += UpdateCurrency;
+        
+    }
+
+    private void OnEnable()
+    {
+        if (DataManager.Instance != null)
+        {
+            DataManager.Instance.OnChangedExp += SetPassLevelData;
+            DataManager.Instance.OnChangedLevel += SetItemListImage;
+        }
+            
+    }
+
+    private void OnDisable()
+    {
+        if (DataManager.Instance != null)
+        {
+            DataManager.Instance.OnChangedExp -= SetPassLevelData;
+            DataManager.Instance.OnChangedLevel -= SetItemListImage;
+        }
     }
 
     private void Update()
@@ -51,9 +71,21 @@ public class LumberPassUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             DataManager.Instance.AddPass(PassDataType.EXP, 50);
-            SetPassLevelData();
-            SetItemListLockImage();
         }
+    }
+    
+    private void Btn_BuyPremiumPass()
+    {
+        UserData userData = DataManager.Instance.UserData;
+        if (userData.PassData.IsSpecialPassEnabled)
+            return;
+
+        DataManager.Instance.BuySpecialPass();
+        _premiumPassBtn.gameObject.SetActive(false);
+
+        SetItemListImage();
+        
+        Debug.Log("Buy Premium Pass");
     }
     
     private void SetLumberPassData()
@@ -63,7 +95,7 @@ public class LumberPassUI : MonoBehaviour
         _gameMoneyText.text = userData.CurrencyData.GameMoney.ToString();
         _gemText.text = userData.CurrencyData.Gem.ToString();
         _upgradeText.text = userData.CurrencyData.Upgrade.ToString();
-        _upgradeText.text = userData.CurrencyData.LevelUpPoint.ToString();
+        _LevelUpPointText.text = userData.CurrencyData.LevelUpPoint.ToString();
         
         if (userData.PassData.IsSpecialPassEnabled)
         {
@@ -71,6 +103,15 @@ public class LumberPassUI : MonoBehaviour
         }
 
         SetPassLevelData();
+    }
+    private void SetItemListImage()
+    {
+        for (int i = 0; i < _itemList.Count; i++)
+        {
+            _itemList[i].SetLockImage();
+            _itemList[i].SetLevelLine();
+            _itemList[i].SetLineLevelImage();
+        }
     }
 
     private void SetPassLevelData()
@@ -89,44 +130,12 @@ public class LumberPassUI : MonoBehaviour
         PassInfoData passInfoData = SpecDataManager.Instance.GetPassInfoData(key);
         
         item.SetData(passInfoData);
-        //SetItemLevelLine(passInfoData, item);
         
         item.OnRewardReceived = () => UpdateCurrency((CurrencyDataType)passInfoData.reward_idx);
         item.OnSpecialRewardReceived = () => UpdateCurrency((CurrencyDataType)passInfoData.special_reward_idx);
-    }
-
-    /*private void SetItemLevelLine(PassInfoData passInfoData, ItemLumberPass item)
-    {
-        UserData userData = DataManager.Instance.UserData;
         
-        int currentLevel = userData.PassData.PassLevel;
-        int currentExp = userData.PassData.PassExp;
+    }
     
-        if (passInfoData.pass_level == currentLevel)
-        {
-            int needExp = SpecDataManager.Instance.GetPassInfoData(currentLevel).need_exp;
-    
-            float t = (float)currentExp / needExp; // 현재 경험치 비율 (0.0 ~ 1.0)
-    
-            // 예: 이전 0.5 기준으로 레벨 라인을 표시하고 싶다면...
-            float from = 0.5f;  // 이전 레벨 절반
-            float to = 1f;      // 현재 레벨까지
-    
-            float fill = Mathf.Lerp(from, to, t); // 레벨 반~전체까지 보간
-    
-            item.SetLevelLine(fill, 1f);
-        }
-        else if (passInfoData.pass_level < currentLevel)
-        {
-            // 이미 지난 레벨이면 항상 가득 찬 상태
-            item.SetLevelLine(1f, 1f);
-        }
-        else
-        {
-            // 아직 도달하지 않은 레벨이면 0
-            item.SetLevelLine(0f, 1f);
-        }
-    }*/
     private void SpawnItem()
     {
         Debug.Log("SpawnItem");
@@ -185,29 +194,6 @@ public class LumberPassUI : MonoBehaviour
             }
         }
     }
-
-    private void Btn_BuyPremiumPass()
-    {
-        UserData userData = DataManager.Instance.UserData;
-        if (userData.PassData.IsSpecialPassEnabled)
-            return;
-
-        DataManager.Instance.BuySpecialPass();
-        _premiumPassBtn.gameObject.SetActive(false);
-
-        SetItemListLockImage();
-        
-        Debug.Log("Buy Premium Pass");
-    }
-
-    private void SetItemListLockImage()
-    {
-        for (int i = 0; i < _itemList.Count; i++)
-        {
-            _itemList[i].SetLockImage();
-        }
-    }
-
     private void UpdateCurrency(CurrencyDataType currencyDataType)
     {
         int currency = DataManager.Instance.GetCurrency(currencyDataType);
@@ -233,5 +219,6 @@ public class LumberPassUI : MonoBehaviour
         _scrollRect.onValueChanged.RemoveListener(_ => OnScrollChanged());
         _premiumPassBtn.onClick.RemoveListener(Btn_BuyPremiumPass);
         _onChangedCurrency -= UpdateCurrency;
+        
     }
 }

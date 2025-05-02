@@ -26,8 +26,11 @@ public enum CurrencyDataType
 public partial class DataManager
 {
     public UserData UserData => _userData;
+    public Action OnChangedExp;
+    public Action OnChangedLevel;
     
     private UserData _userData;
+    
     public void AddCurrency(CurrencyDataType currencyDataType, int amount)
     {
         switch (currencyDataType)
@@ -132,12 +135,14 @@ public partial class DataManager
     private void AddPassLevel(int amount)
     {
         _userData.PassData.PassLevel += amount;
+        SaveUserData();
+        OnChangedLevel?.Invoke();
     }
 
     private void AddPassExp(int amount)
     {
         _userData.PassData.PassExp += amount;
-
+        
         if (SpecDataManager.Instance == null)
             return;
 
@@ -149,6 +154,7 @@ public partial class DataManager
             AddPassLevel(1);
             InitPassExp(userExp - needExp);
         }
+        OnChangedExp?.Invoke();
     }
 
     private void InitPassExp(int amount)

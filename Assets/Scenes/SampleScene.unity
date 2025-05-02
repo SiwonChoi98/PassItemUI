@@ -985,7 +985,7 @@ PrefabInstance:
     - target: {fileID: 8107935418877039973, guid: 0760734cfdfe75844bb90f09291d7305, type: 3}
       propertyPath: _gemText
       value: 
-      objectReference: {fileID: 281305355}
+      objectReference: {fileID: 58895985}
     - target: {fileID: 8107935418877039973, guid: 0760734cfdfe75844bb90f09291d7305, type: 3}
       propertyPath: _scrollRect
       value: 
@@ -997,7 +997,7 @@ PrefabInstance:
     - target: {fileID: 8107935418877039973, guid: 0760734cfdfe75844bb90f09291d7305, type: 3}
       propertyPath: _upgradeText
       value: 
-      objectReference: {fileID: 58895985}
+      objectReference: {fileID: 281305355}
     - target: {fileID: 8107935418877039973, guid: 0760734cfdfe75844bb90f09291d7305, type: 3}
       propertyPath: _gameMoneyText
       value: 
