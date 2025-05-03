@@ -261,7 +261,7 @@ public class LumberPassUI : MonoBehaviour
 
     private bool RelocationItem(ItemLumberPass item, float contentY, float scrollHeight)
     {
-        if (item.transform.localPosition.y + contentY > (_itemHeight * 2f) - 10f)
+        if (item.transform.localPosition.y + contentY > (_itemHeight * 2f) - 15f)
         {
             item.transform.localPosition -= new Vector3(0, _offset);
             return true;
