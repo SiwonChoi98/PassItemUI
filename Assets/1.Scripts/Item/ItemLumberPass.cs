@@ -132,22 +132,41 @@ public class ItemLumberPass : MonoBehaviour
         int userLevel = userData.PassData.PassLevel;
 
         float userExp = userData.PassData.PassExp;
-        float needExp = _data.need_exp;
         
-        //user = 3 - item 2 부터는 그냥 꺼주면 됨
+        
+        // 같은 레벨: 0.5 + 일부 경험치
+        if(userLevel == _data.pass_level)
+        {
+            float needExp = _data.need_exp;
+            float remainExp = Mathf.Min(Mathf.Clamp01(userExp / needExp), 0.5f);
+            
+            SetLevelLineFill(0.5f + remainExp, 1);
+            return;
+        }
+        
+        // 1레벨 낮을 때: 0 ~ 0.5 사이로 경험치
+        if (userLevel < _data.pass_level && userLevel == _data.pass_level-1)
+        {
+            float needExp = SpecDataManager.Instance.GetPassInfoData(userLevel).need_exp;
+            float remainExp = Mathf.Max((Mathf.Clamp01((userExp / needExp) - 0.5f)), 0);
+            SetLevelLineFill(remainExp, 1);
+            return;
+        }
+        
+        
+        // 더 높은 레벨: 전체 게이지 채움
+        if (userLevel > _data.pass_level)
+        {
+            SetLevelLineFill(1, 1);
+            return;
+        }
+
+        // 2레벨 이상 낮음: 게이지 없음
         if (userLevel < _data.pass_level)
         {
             SetLevelLineFill(0, 1);
+            return;
         }
-        else if (userLevel > _data.pass_level)
-        {
-            SetLevelLineFill(1, 1);
-        }
-        else
-        {
-            SetLevelLineFill(0.5f, 1);
-        }
-        
     }
 
     private void SetLevelLineFill(float current, float max)

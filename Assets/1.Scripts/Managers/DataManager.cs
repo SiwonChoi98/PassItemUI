@@ -168,6 +168,9 @@ public partial class DataManager
             AddPassLevel(1);
             InitPassExp(userExp - needExp);
         }
+        
+        SaveUserData();
+        
         OnChangedExp?.Invoke();
     }
 
@@ -204,7 +207,6 @@ public partial class DataManager : Singleton<DataManager>
 
         //삭제
         //DeleteUserDataAsync().Forget();
-        
         //로드
         LoadUserDataAsync().Forget();
     }

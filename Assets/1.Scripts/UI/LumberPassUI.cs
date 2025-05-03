@@ -38,11 +38,10 @@ public class LumberPassUI : MonoBehaviour
     private async void Start()
     {
         await UniTask.WaitUntil(() => DataManager.Instance != null && DataManager.Instance.UserData != null);
-
-        SetLumberPassData();
         SpawnItem();
         SetContentHeight();
-
+        SetLumberPassData();
+        
         _scrollRect.onValueChanged.AddListener(_ => OnScrollChanged());
         _premiumPassBtn.onClick.AddListener(Btn_BuyPremiumPass);
 
@@ -54,7 +53,7 @@ public class LumberPassUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            DataManager.Instance.AddPass(PassDataType.EXP, 70);
+            DataManager.Instance.AddPass(PassDataType.EXP, 10);
         }
     }
 
@@ -180,8 +179,32 @@ public class LumberPassUI : MonoBehaviour
         
         float userPassExp = userData.PassData.PassExp;
         float userNextLevelNeedExp = SpecDataManager.Instance.GetPassInfoData(userData.PassData.PassLevel).need_exp;
+        
         _passExpText.text = $"<color=#FFFFEB>{userPassExp}</color><color=#FFFFEB>/{userNextLevelNeedExp}</color>";
         _passExpSlider.value = userPassExp / userNextLevelNeedExp;
+
+        SetTargetItemLevelLine(userData);
+    }
+
+    private void SetTargetItemLevelLine(UserData userData)
+    {
+        if (userData?.PassData == null)
+            return;
+
+        int userLevel = userData.PassData.PassLevel;
+
+        for (int i = 0; i < _itemList.Count; i++)
+        {
+            if (_itemList[i] == null || _itemList[i].Data == null)
+                continue;
+
+            int itemLevel = _itemList[i].Data.pass_level;
+
+            if (userLevel == itemLevel || userLevel + 1 == itemLevel)
+            {
+                _itemList[i].SetLevelLine();
+            }
+        }
     }
     private void SetItemData(ItemLumberPass item, int key)
     {
