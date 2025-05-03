@@ -25,10 +25,11 @@ public enum CurrencyDataType
 }
 public partial class DataManager
 {
-    public UserData UserData => _userData;
     public Action OnChangedExp;
     public Action OnChangedLevel;
+    public Action OnChangedPass;
     
+    public UserData UserData => _userData;
     private UserData _userData;
     
     public void AddCurrency(CurrencyDataType currencyDataType, int amount)
@@ -131,6 +132,22 @@ public partial class DataManager
                 return false;
         }
     }
+    public void InitPassData(long currentUnixTime, int passDurationSeconds)
+    {
+        _userData.PassData.IsSpecialPassEnabled = false;
+        _userData.PassData.PassLevel = 1;
+        _userData.PassData.PassExp = 0;
+        _userData.PassData.RewardsReceivedDic.Clear();
+        _userData.PassData.SpecialRewardsReceivedDic.Clear();
+
+        // 다음 종료 시간 설정
+        _userData.PassData.PassEndUnixTime = currentUnixTime + passDurationSeconds;
+        
+        SaveUserData();
+        
+        OnChangedPass?.Invoke();
+    }
+    
 
     private void AddPassLevel(int amount)
     {
@@ -159,7 +176,7 @@ public partial class DataManager
 
     private void InitPassExp(int amount)
     {
-        _userData.PassData.PassExp = Math.Min(0, amount);
+        _userData.PassData.PassExp = Math.Max(0, amount);
     }
     
     private void AddGold(int amount)

@@ -53,6 +53,8 @@ public class LumberPassUI : MonoBehaviour
         {
             DataManager.Instance.OnChangedExp += SetPassLevelData;
             DataManager.Instance.OnChangedLevel += SetItemListImage;
+            
+            DataManager.Instance.OnChangedPass += InitPassAction;
         }
             
     }
@@ -63,6 +65,8 @@ public class LumberPassUI : MonoBehaviour
         {
             DataManager.Instance.OnChangedExp -= SetPassLevelData;
             DataManager.Instance.OnChangedLevel -= SetItemListImage;
+            
+            DataManager.Instance.OnChangedPass -= InitPassAction;
         }
     }
 
@@ -87,6 +91,13 @@ public class LumberPassUI : MonoBehaviour
         
         Debug.Log("Buy Premium Pass");
     }
+
+    private void InitPassAction()
+    {
+        SetPremiumPassBtnEnable();
+        SetPassLevelData();
+        SetItemListImage();
+    }
     
     private void SetLumberPassData()
     {
@@ -97,11 +108,7 @@ public class LumberPassUI : MonoBehaviour
         _upgradeText.text = userData.CurrencyData.Upgrade.ToString();
         _LevelUpPointText.text = userData.CurrencyData.LevelUpPoint.ToString();
         
-        if (userData.PassData.IsSpecialPassEnabled)
-        {
-            _premiumPassBtn.gameObject.SetActive(false);
-        }
-
+        SetPremiumPassBtnEnable();
         SetPassLevelData();
     }
     private void SetItemListImage()
@@ -114,6 +121,15 @@ public class LumberPassUI : MonoBehaviour
         }
     }
 
+    private void SetPremiumPassBtnEnable()
+    {
+        UserData userData = DataManager.Instance.UserData;
+        
+        if (userData.PassData.IsSpecialPassEnabled)
+            _premiumPassBtn.gameObject.SetActive(false);
+        else 
+            _premiumPassBtn.gameObject.SetActive(true);
+    }
     private void SetPassLevelData()
     {
         UserData userData = DataManager.Instance.UserData;
