@@ -11,12 +11,32 @@ public class RewardObj : BasePoolObject
         _itemImage.sprite = sprite;
     }
     
-    public void Initialize(Sprite sprite, Vector3 endPosition)
+    public void Initialize(Sprite sprite, Vector3 centerPosition)
     {
         SetSprite(sprite);
-        GetComponent<RectTransform>()
-            .DOMove(endPosition, 1f)
-            .SetEase(Ease.InCubic)
-            .OnComplete(ReturnToPool);
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        rectTransform.localScale = Vector3.one;
+        
+        Color color = _itemImage.color;
+        color.a = 1f;
+        _itemImage.color = color;
+
+        Vector3 endPosition = GetExplodeEndPosition(centerPosition, 150f);
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(rectTransform.DOMove(endPosition, 0.3f).SetEase(Ease.OutCubic));
+        seq.Join(rectTransform.DORotate(new Vector3(0, 0, Random.Range(-180f, 180f)), 0.3f));
+        seq.Append(rectTransform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack));
+        seq.Join(_itemImage.DOFade(0f, 0.3f));
+        seq.OnComplete(() =>
+        {
+            ReturnToPool();
+        });
+    }
+    
+    private Vector3 GetExplodeEndPosition(Vector3 centerPosition, float distance = 150f)
+    {
+        Vector2 randomDir = Random.insideUnitCircle.normalized;
+        return centerPosition + (Vector3)(randomDir * distance);
     }
 }

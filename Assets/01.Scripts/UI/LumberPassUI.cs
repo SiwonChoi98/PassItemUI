@@ -314,11 +314,10 @@ public class LumberPassUI : MonoBehaviour
     {
         int spawnCount = GetSpawnCount(passInfoData, passDataType, out int rewardIndex);
         Vector3 startOffset = GetStartOffset(passDataType);
-        Vector3 endPosition = GetRewardTargetPosition(rewardIndex);
 
         for (int i = 0; i < spawnCount; i++)
         {
-            SpawnSingleReward(rewardIndex, spawnOrigin.position + startOffset, endPosition);
+            SpawnSingleReward(rewardIndex, spawnOrigin.position + startOffset);
         }
     }
 
@@ -360,19 +359,7 @@ public class LumberPassUI : MonoBehaviour
             : Vector3.right * offsetX;
     }
 
-    private Vector3 GetRewardTargetPosition(int rewardIndex)
-    {
-        return rewardIndex switch
-        {
-            1 => _gameMoneyRect.position,
-            2 => _gemRect.position,
-            3 => _upgradeRect.position,
-            4 => _levelUpPointRect.position,
-            _ => Vector3.zero
-        };
-    }
-
-    private void SpawnSingleReward(int rewardIndex, Vector3 startPosition, Vector3 endPosition)
+    private void SpawnSingleReward(int rewardIndex, Vector3 startPosition)
     {
         RewardObj prefab = ResourceManager.Instance.RewardResourceDatas.RewardObj;
 
@@ -381,15 +368,16 @@ public class LumberPassUI : MonoBehaviour
         if (rewardObj == null) return;
 
         Vector3 randomOffset = new Vector3(
-            UnityEngine.Random.Range(-100f, 100f),
-            UnityEngine.Random.Range(-100f, 100f),
+            UnityEngine.Random.Range(-20f, 20f),
+            UnityEngine.Random.Range(-20f, 20f),
             0f
         );
 
         RectTransform rect = rewardObj.GetComponent<RectTransform>();
+        Vector3 spawnPosition = startPosition + randomOffset;
         rect.position = startPosition + randomOffset;
-
-        rewardObj.Initialize(Utills.SetRewardSprite(rewardIndex), endPosition);
+        
+        rewardObj.Initialize(Utills.SetRewardSprite(rewardIndex), spawnPosition);
     }
         
 

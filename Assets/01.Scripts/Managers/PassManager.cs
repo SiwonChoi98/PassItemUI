@@ -20,11 +20,14 @@ public class PassManager : Singleton<PassManager>
     [SerializeField] private float _userPassExpUpTime;
     private bool _isActive = false;
     
-    private void Start()
+    private async void Start()
     {
+        await UniTask.WaitUntil(() => DataManager.Instance != null && DataManager.Instance.UserData != null);
+        
         SetCycleTime();
         
         UpdateNextResetTime();
+        
         UpdateCycleRoutine().Forget();
         
         _isActive = true;
