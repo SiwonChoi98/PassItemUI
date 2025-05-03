@@ -101,6 +101,14 @@ public class ItemLumberPass : MonoBehaviour
         bool isLineLevelEnable = userData.PassData.PassLevel >= _data.pass_level;
         _currentLevelEnabled.SetActive(isLineLevelEnable);
     }
+    public void SetCheckImage()
+    {
+        bool isRewardCheckImage = DataManager.Instance.IsRewardReceived(PassDataType.REWARD_RECEIVED, _data.pass_level);
+        _rewardCheckImage.gameObject.SetActive(isRewardCheckImage);
+        
+        bool isSpecialRewardCheckImage = DataManager.Instance.IsRewardReceived(PassDataType.SPECIALREWARD_RECEIVED, _data.pass_level);
+        _specialrewardCheckImage.gameObject.SetActive(isSpecialRewardCheckImage);
+    }
     
     public void SetLockImage()
     {
@@ -157,14 +165,4 @@ public class ItemLumberPass : MonoBehaviour
         Debug.LogError("RewardSprite is Null");
         return null;
     }
-    
-    private void SetCheckImage()
-    {
-        bool isRewardCheckImage = DataManager.Instance.IsRewardReceived(PassDataType.REWARD_RECEIVED, _data.pass_level);
-        _rewardCheckImage.gameObject.SetActive(isRewardCheckImage);
-        
-        bool isSpecialRewardCheckImage = DataManager.Instance.IsRewardReceived(PassDataType.SPECIALREWARD_RECEIVED, _data.pass_level);
-        _specialrewardCheckImage.gameObject.SetActive(isSpecialRewardCheckImage);
-    }
-    
 }

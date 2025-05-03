@@ -22,6 +22,9 @@ public class LumberPassUI : MonoBehaviour
     [SerializeField] private Text _passLevelText;
     [SerializeField] private Text _passExpText;
     [SerializeField] private Slider _passExpSlider;
+
+    [Header("PassTime")]
+    [SerializeField] private Text _passRemainingTimeText;
     
     [Header("PassItem")]
     [SerializeField] private ItemLumberPass _baseItemLumberPassPrefab;
@@ -46,8 +49,26 @@ public class LumberPassUI : MonoBehaviour
         _onChangedCurrency += UpdateCurrency;
         
     }
+    
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            DataManager.Instance.AddPass(PassDataType.EXP, 70);
+        }
+    }
 
     private void OnEnable()
+    {
+        AddDelegate();
+    }
+
+    private void OnDisable()
+    {
+        RemoveDelegate();
+    }
+
+    private void AddDelegate()
     {
         if (DataManager.Instance != null)
         {
@@ -56,10 +77,14 @@ public class LumberPassUI : MonoBehaviour
             
             DataManager.Instance.OnChangedPass += InitPassAction;
         }
-            
+
+        if (PassManager.Instance != null)
+        {
+            PassManager.Instance.OnChangedPassTime += UpdatePassRemainingTime;
+        }
     }
 
-    private void OnDisable()
+    private void RemoveDelegate()
     {
         if (DataManager.Instance != null)
         {
@@ -68,13 +93,29 @@ public class LumberPassUI : MonoBehaviour
             
             DataManager.Instance.OnChangedPass -= InitPassAction;
         }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
+        
+        if (PassManager.Instance != null)
         {
-            DataManager.Instance.AddPass(PassDataType.EXP, 50);
+            PassManager.Instance.OnChangedPassTime -= UpdatePassRemainingTime;
+        }
+    }
+    
+    private void UpdatePassRemainingTime(DateTime resetTime)
+    {
+        TimeSpan timeLeft = resetTime - DateTime.UtcNow;
+
+        if (timeLeft.TotalSeconds <= 0)
+        {
+            _passRemainingTimeText.text = "RemainingTime : 0h 0m 0s";
+            return;
+        }
+        else
+        {
+            int hours = (int)timeLeft.TotalHours;
+            int minutes = timeLeft.Minutes;
+            int seconds = timeLeft.Seconds;
+
+            _passRemainingTimeText.text = $"RemainingTime : {hours:D2}h {minutes:D2}m {seconds:D2}s";
         }
     }
     
@@ -118,6 +159,7 @@ public class LumberPassUI : MonoBehaviour
             _itemList[i].SetLockImage();
             _itemList[i].SetLevelLine();
             _itemList[i].SetLineLevelImage();
+            _itemList[i].SetCheckImage();
         }
     }
 

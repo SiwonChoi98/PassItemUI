@@ -132,16 +132,13 @@ public partial class DataManager
                 return false;
         }
     }
-    public void InitPassData(long currentUnixTime, int passDurationSeconds)
+    public void InitPassData()
     {
         _userData.PassData.IsSpecialPassEnabled = false;
         _userData.PassData.PassLevel = 1;
         _userData.PassData.PassExp = 0;
         _userData.PassData.RewardsReceivedDic.Clear();
         _userData.PassData.SpecialRewardsReceivedDic.Clear();
-
-        // 다음 종료 시간 설정
-        _userData.PassData.PassEndUnixTime = currentUnixTime + passDurationSeconds;
         
         SaveUserData();
         
@@ -199,7 +196,7 @@ public partial class DataManager
 
 public partial class DataManager : Singleton<DataManager>
 {
-    [SerializeField] private string _userDataPath;
+    private string _userDataPath;
     
     protected override void Awake()
     {

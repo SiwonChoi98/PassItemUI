@@ -32,6 +32,4 @@ public class PassData
     
     [JsonProperty]
     public Dictionary<int, bool> SpecialRewardsReceivedDic = new Dictionary<int, bool>();
-    
-    public long PassEndUnixTime;
 }

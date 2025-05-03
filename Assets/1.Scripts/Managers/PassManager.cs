@@ -6,79 +6,104 @@ using UnityEngine;
 
 public class PassManager : Singleton<PassManager>
 {
+    [Header("PassTime")]
+    private TimeSpan _cycle;
+    private bool _isCycleValid = false;
+    
+    private DateTime _fixedStartTime = new DateTime(2025, 5, 3, 16, 20, 0, DateTimeKind.Utc);
+    private DateTime _nextResetTime;
+
+    public Action<DateTime> OnChangedPassTime;
+    
+    [Header("PassExp")]
+    //10초마다 올라가는 경험치 값
+    [SerializeField] private float _userPassExpUpTime;
+    private bool _isActive = false;
+    
     private void Start()
     {
-        //CheckPassLoop().Forget();
+        SetCycleTime();
+        
+        UpdateNextResetTime();
+        UpdateCycleRoutine().Forget();
+        
+        _isActive = true;
+        AutoIncreaseExp().Forget();
     }
-
-    private async UniTaskVoid CheckPassLoop()
+    private void OnDestroy()
     {
-        var token = this.GetCancellationTokenOnDestroy();
-
-        while (!token.IsCancellationRequested)
-        {
-            CheckPassReset();
-            await UniTask.Delay(1000, cancellationToken: token);
-        }
+        _isActive = false;
     }
     
-    /*public void CheckPassReset()
+    private void SetCycleTime()
     {
-        long currentUnixTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-        UserData userData = DataManager.Instance.UserData;
-        int passDurationSeconds = SpecDataManager.Instance.GetDefineData("pass_end_time").value;
-        
-        if (userData.PassData.PassEndUnixTime == 0)
+        int cycleTime = SpecDataManager.Instance.GetDefineData("pass_end_time").value;
+        if (cycleTime == 0)
         {
-            // 처음 실행 시 초기화 시간 설정
-            userData.PassData.PassEndUnixTime = currentUnixTime + passDurationSeconds;
-            DataManager.Instance.SaveUserData();
+            Debug.LogError("SpecData is Null");
+            _isCycleValid = false;
             return;
         }
-
-        if (currentUnixTime >= userData.PassData.PassEndUnixTime)
-        {
-            Debug.Log("패스 시간 만료됨. 패스 초기화!");
-
-            // 데이터 초기화
-            DataManager.Instance.InitPassData(currentUnixTime, passDurationSeconds);
-        }
-    }*/
+        
+        _cycle = TimeSpan.FromSeconds(cycleTime);
+        _isCycleValid = true;
+    }
     
-    private void CheckPassReset()
+    private async UniTaskVoid UpdateCycleRoutine()
     {
-        long currentUnixTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+        while (true)
+        {
+            CheckReset();
+            UpdateRemainingTimeUI();
+            await UniTask.Delay(1000); // 1초마다 업데이트
+        }
+    }
 
-        if (DataManager.Instance == null)
+    private void UpdateNextResetTime()
+    {
+        if (!_isCycleValid)
             return;
         
-        var userData = DataManager.Instance.UserData;
-        if (userData == null)
-        {
-            Debug.LogWarning("UserData is null");
+        TimeSpan elapsed = DateTime.UtcNow - _fixedStartTime;
+        int cyclesPassed = Mathf.FloorToInt((float)(elapsed.TotalSeconds / _cycle.TotalSeconds));
+        _nextResetTime = _fixedStartTime.AddSeconds((cyclesPassed + 1) * _cycle.TotalSeconds);
+    }
+
+    private void CheckReset()
+    {
+        if (!_isCycleValid)
             return;
-        }
-
-        var defineData = SpecDataManager.Instance.GetDefineData("pass_end_time");
-        if (defineData == null)
+        
+        if (DateTime.UtcNow >= _nextResetTime)
         {
-            Debug.LogWarning("pass_end_time value is null");
+            ResetPassData();
+            UpdateNextResetTime(); // 다음 초기화 시점 갱신
+        }
+    }
+
+    private void UpdateRemainingTimeUI()
+    {
+        if (!_isCycleValid)
             return;
-        }
 
-        int passDurationSeconds = defineData.value;
+        OnChangedPassTime?.Invoke(_nextResetTime);
+    }
 
-        if (userData.PassData.PassEndUnixTime == 0)
+    private void ResetPassData()
+    {
+        DataManager.Instance.InitPassData();
+        Debug.Log("패스 데이터가 초기화되었습니다.");
+    }
+    
+    private async UniTaskVoid AutoIncreaseExp()
+    {
+        while (_isActive)
         {
-            userData.PassData.PassEndUnixTime = currentUnixTime + passDurationSeconds;
-            DataManager.Instance.SaveUserData();
-            return;
-        }
+            await UniTask.Delay(TimeSpan.FromSeconds(_userPassExpUpTime), cancellationToken: this.GetCancellationTokenOnDestroy());
 
-        if (currentUnixTime >= userData.PassData.PassEndUnixTime)
-        {
-            Debug.Log("패스 시간 만료됨. 패스 초기화!");
-            DataManager.Instance.InitPassData(currentUnixTime, passDurationSeconds);
+            int exp = SpecDataManager.Instance.GetDefineData("increase_time_exp").value;
+            DataManager.Instance.AddPass(PassDataType.EXP, exp);
+            Debug.Log("경험치 증가!! : " + exp);
         }
     }
 }
