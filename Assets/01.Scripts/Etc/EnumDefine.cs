@@ -22,3 +22,12 @@ public enum NotificationType
     SPECIALPASS_NOT_ENABLED,
     IS_RECEIVED,
 }
+
+public enum SoundType
+{
+    BUTTON_SFX = 1001,
+    NOTIPOPUP_SFX = 1002,
+    ADDCOIN_SFX = 1003,
+    LEVELUP_SFX = 1004,
+    SPECIALPASSBUTTON = 1005,
+}

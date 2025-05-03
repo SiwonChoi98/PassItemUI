@@ -41,6 +41,7 @@ public class ItemLumberPass : MonoBehaviour
         if (isReceived)
         {
             OnNotiSpawn?.Invoke(NotificationType.IS_RECEIVED);
+            SoundManager.Instance.Play_SFX(SoundType.NOTIPOPUP_SFX, 0.5f);
             return;
         }
             
@@ -48,6 +49,7 @@ public class ItemLumberPass : MonoBehaviour
         if (_data.pass_level > DataManager.Instance.UserData.PassData.PassLevel)
         {
             OnNotiSpawn?.Invoke(NotificationType.LEVEL_NOT_ENOUGH);
+            SoundManager.Instance.Play_SFX(SoundType.NOTIPOPUP_SFX, 0.5f);
             return;
         }
         
@@ -55,12 +57,15 @@ public class ItemLumberPass : MonoBehaviour
         DataManager.Instance.ClaimReward(PassDataType.REWARD_RECEIVED, _data.pass_level);
         DataManager.Instance.AddCurrency((CurrencyDataType)_data.reward_idx, _data.reward_value);
         
+        SoundManager.Instance.Play_SFX(SoundType.ADDCOIN_SFX, 0.3f);
+        
         //ui
         SetCheckImage();
         OnRewardReceived?.Invoke();
 
         OnRewardSpawn?.Invoke(_data, PassDataType.REWARD_RECEIVED, GetComponent<RectTransform>());
         
+        SoundManager.Instance.Play_SFX(SoundType.BUTTON_SFX, 0.3f);
         Debug.Log("rewardReceive : " + _data.pass_level);
     }
 
@@ -70,6 +75,7 @@ public class ItemLumberPass : MonoBehaviour
         if (isReceived)
         {
             OnNotiSpawn?.Invoke(NotificationType.IS_RECEIVED);
+            SoundManager.Instance.Play_SFX(SoundType.NOTIPOPUP_SFX, 0.5f);
             return;
         }
 
@@ -77,6 +83,7 @@ public class ItemLumberPass : MonoBehaviour
         if (!DataManager.Instance.UserData.PassData.IsSpecialPassEnabled)
         {
             OnNotiSpawn?.Invoke(NotificationType.SPECIALPASS_NOT_ENABLED);
+            SoundManager.Instance.Play_SFX(SoundType.NOTIPOPUP_SFX, 0.5f);
             return;
         }
             
@@ -84,6 +91,7 @@ public class ItemLumberPass : MonoBehaviour
         if (_data.pass_level > DataManager.Instance.UserData.PassData.PassLevel)
         {
             OnNotiSpawn?.Invoke(NotificationType.LEVEL_NOT_ENOUGH);
+            SoundManager.Instance.Play_SFX(SoundType.NOTIPOPUP_SFX, 0.5f);
             return;
         }
         
@@ -91,12 +99,15 @@ public class ItemLumberPass : MonoBehaviour
         DataManager.Instance.ClaimReward(PassDataType.SPECIALREWARD_RECEIVED, _data.pass_level);
         DataManager.Instance.AddCurrency((CurrencyDataType)_data.special_reward_idx, _data.special_reward_value);
         
+        SoundManager.Instance.Play_SFX(SoundType.ADDCOIN_SFX, 0.3f);
+        
         //ui
         SetCheckImage();
         OnSpecialRewardReceived?.Invoke();
         
         OnRewardSpawn?.Invoke(_data, PassDataType.SPECIALREWARD_RECEIVED, GetComponent<RectTransform>());
         
+        SoundManager.Instance.Play_SFX(SoundType.BUTTON_SFX, 0.3f);
         Debug.Log("specialRewardReceive : " + _data.pass_level);
     }
     public void SetData(PassInfoData data)

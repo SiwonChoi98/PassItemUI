@@ -80,7 +80,7 @@ public class LumberPassUI : MonoBehaviour
         {
             DataManager.Instance.OnChangedExp += SetPassLevelData;
             DataManager.Instance.OnChangedLevel += SetItemListImage;
-            
+            DataManager.Instance.OnChangedLevel += LevelUpSound;
             DataManager.Instance.OnChangedPass += InitPassAction;
         }
 
@@ -96,7 +96,7 @@ public class LumberPassUI : MonoBehaviour
         {
             DataManager.Instance.OnChangedExp -= SetPassLevelData;
             DataManager.Instance.OnChangedLevel -= SetItemListImage;
-            
+            DataManager.Instance.OnChangedLevel -= LevelUpSound;
             DataManager.Instance.OnChangedPass -= InitPassAction;
         }
         
@@ -135,6 +135,8 @@ public class LumberPassUI : MonoBehaviour
         _premiumPassBtn.gameObject.SetActive(false);
 
         SetItemListImage();
+        
+        SoundManager.Instance.Play_SFX(SoundType.SPECIALPASSBUTTON, 0.5f);
         
         Debug.Log("Buy Premium Pass");
     }
@@ -397,6 +399,10 @@ public class LumberPassUI : MonoBehaviour
         _scrollRect.onValueChanged.RemoveListener(_ => OnScrollChanged());
         _premiumPassBtn.onClick.RemoveListener(Btn_BuyPremiumPass);
         _onChangedCurrency -= UpdateCurrency;
-        
+    }
+
+    private void LevelUpSound()
+    {
+        SoundManager.Instance.Play_SFX(SoundType.LEVELUP_SFX, 0.4f);
     }
 }
