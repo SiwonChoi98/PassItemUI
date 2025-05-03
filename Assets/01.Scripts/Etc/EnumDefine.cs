@@ -12,5 +12,13 @@ public enum Reward_Type
 
 public enum PoolObjectType
 {
-    CURRENCY_OBJ = 1001,   
+    CURRENCYOBJ_UI = 1001, 
+    NOTIPOPUP_UI = 1002,
+}
+
+public enum NotificationType
+{
+    LEVEL_NOT_ENOUGH,   
+    SPECIALPASS_NOT_ENABLED,
+    IS_RECEIVED,
 }

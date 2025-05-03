@@ -243,12 +243,17 @@ public class LumberPassUI : MonoBehaviour
             
             _itemList.Add(item);
             SetItemData(item, i+1);
-            item.OnRewardSpawn += SpawnRewardObj;
+            SetItemDelegate(item);
         }
 
         _offset = _itemList.Count * _itemHeight;
     }
 
+    private void SetItemDelegate(ItemLumberPass item)
+    {
+        item.OnRewardSpawn += SpawnRewardObj;
+        item.OnNotiSpawn += SpawnNotiPopup;
+    }
     private void SetContentHeight()
     {
         _scrollRect.content.sizeDelta = new Vector2(_scrollRect.content.sizeDelta.x, SpecDataManager.Instance.PassInfoCount * _itemHeight);
@@ -317,6 +322,18 @@ public class LumberPassUI : MonoBehaviour
         }
     }
 
+    private void SpawnNotiPopup(NotificationType notificationType)
+    {
+        NotiPopup baseNotiPopup = ResourceManager.Instance.EtcDatas.NotiPopup;
+        BasePoolObject basePoolObject = PoolManager.Instance.SpawnUI(PoolObjectType.NOTIPOPUP_UI, baseNotiPopup, transform);
+        
+        NotiPopup notiPopup = basePoolObject as NotiPopup;
+        if (notiPopup == null)
+            return;
+        
+        notiPopup.SetText(notificationType);
+    }
+
     private int GetSpawnCount(PassInfoData passInfoData, PassDataType passDataType, out int rewardIndex)
     {
         rewardIndex = 0;
@@ -359,7 +376,7 @@ public class LumberPassUI : MonoBehaviour
     {
         RewardObj prefab = ResourceManager.Instance.RewardResourceDatas.RewardObj;
 
-        BasePoolObject pooledObj = PoolManager.Instance.SpawnUI(PoolObjectType.CURRENCY_OBJ, prefab, transform);
+        BasePoolObject pooledObj = PoolManager.Instance.SpawnUI(PoolObjectType.CURRENCYOBJ_UI, prefab, transform);
         RewardObj rewardObj = pooledObj as RewardObj;
         if (rewardObj == null) return;
 
@@ -376,17 +393,18 @@ public class LumberPassUI : MonoBehaviour
     }
         
 
-    private void RemoveRewardObjListener()
+    private void RemoveItemDelegate()
     {
         foreach (var item in _itemList)
         {
             item.OnRewardSpawn -= SpawnRewardObj;
+            item.OnNotiSpawn -= SpawnNotiPopup;
         }
         _itemList.Clear();
     }
     private void OnDestroy()
     {
-        RemoveRewardObjListener();
+        RemoveItemDelegate();
         
         _scrollRect.onValueChanged.RemoveListener(_ => OnScrollChanged());
         _premiumPassBtn.onClick.RemoveListener(Btn_BuyPremiumPass);

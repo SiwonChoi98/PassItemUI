@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,16 +31,23 @@ public class ItemLumberPass : MonoBehaviour
     public Action OnSpecialRewardReceived;
     
     public Action<PassInfoData, PassDataType, RectTransform> OnRewardSpawn;
+
+    [Header("Noti")] 
+    public Action<NotificationType> OnNotiSpawn;
     
     public void Btn_RewardReceive()
     {
         bool isReceived = DataManager.Instance.IsRewardReceived(PassDataType.REWARD_RECEIVED, _data.pass_level);
         if (isReceived)
+        {
+            OnNotiSpawn?.Invoke(NotificationType.IS_RECEIVED);
             return;
+        }
+            
         
         if (_data.pass_level > DataManager.Instance.UserData.PassData.PassLevel)
         {
-            Debug.Log("레벨이 부족합니다.");
+            OnNotiSpawn?.Invoke(NotificationType.LEVEL_NOT_ENOUGH);
             return;
         }
         
@@ -60,14 +68,22 @@ public class ItemLumberPass : MonoBehaviour
     {
         bool isReceived = DataManager.Instance.IsRewardReceived(PassDataType.SPECIALREWARD_RECEIVED, _data.pass_level);
         if (isReceived)
+        {
+            OnNotiSpawn?.Invoke(NotificationType.IS_RECEIVED);
             return;
-        
+        }
+
+
         if (!DataManager.Instance.UserData.PassData.IsSpecialPassEnabled)
+        {
+            OnNotiSpawn?.Invoke(NotificationType.SPECIALPASS_NOT_ENABLED);
             return;
+        }
+            
         
         if (_data.pass_level > DataManager.Instance.UserData.PassData.PassLevel)
         {
-            Debug.Log("레벨이 부족합니다.");
+            OnNotiSpawn?.Invoke(NotificationType.LEVEL_NOT_ENOUGH);
             return;
         }
         

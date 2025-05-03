@@ -5,16 +5,22 @@ using UnityEngine;
 
 public class ResourceManager : Singleton<ResourceManager>
 {
+    public RewardResourceDatas RewardResourceDatas => _rewardResourceDatas;
+    public EtcDatas EtcDatas => _etcDatas;
+    
+    
     private RewardResourceDatas _rewardResourceDatas;
     private const string _rewardResourceDataPath = "RewardResourceData/RewardResourceData";
-
-    public RewardResourceDatas RewardResourceDatas => _rewardResourceDatas;
+    
+    private EtcDatas _etcDatas;
+    private const string _etcDataPath = "EtcData/EtcData";
     
     protected override void Awake()
     {
         base.Awake();
 
         SetRewardDatas();
+        SetEtcDatas();
     }
 
     private void SetRewardDatas()
@@ -26,5 +32,17 @@ public class ResourceManager : Singleton<ResourceManager>
             return;
         }
         _rewardResourceDatas = resource;
+    }
+    
+    private void SetEtcDatas()
+    {
+        EtcDatas resource = Resources.Load<EtcDatas>(_etcDataPath);
+        if (resource == null)
+        {
+            Debug.LogError("EtcData is Null");
+            return;
+        }
+        
+        _etcDatas = resource;
     }
 }
