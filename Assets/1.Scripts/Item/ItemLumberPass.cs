@@ -28,6 +28,9 @@ public class ItemLumberPass : MonoBehaviour
     [Header("RewardReceive")] 
     public Action OnRewardReceived;
     public Action OnSpecialRewardReceived;
+    
+    public Action<PassInfoData, PassDataType, RectTransform> OnRewardSpawn;
+    
     public void Btn_RewardReceive()
     {
         bool isReceived = DataManager.Instance.IsRewardReceived(PassDataType.REWARD_RECEIVED, _data.pass_level);
@@ -48,6 +51,8 @@ public class ItemLumberPass : MonoBehaviour
         SetCheckImage();
         OnRewardReceived?.Invoke();
 
+        OnRewardSpawn?.Invoke(_data, PassDataType.REWARD_RECEIVED, GetComponent<RectTransform>());
+        
         Debug.Log("rewardReceive : " + _data.pass_level);
     }
 
@@ -74,6 +79,8 @@ public class ItemLumberPass : MonoBehaviour
         SetCheckImage();
         OnSpecialRewardReceived?.Invoke();
         
+        OnRewardSpawn?.Invoke(_data, PassDataType.SPECIALREWARD_RECEIVED, GetComponent<RectTransform>());
+        
         Debug.Log("specialRewardReceive : " + _data.pass_level);
     }
     public void SetData(PassInfoData data)
@@ -86,8 +93,8 @@ public class ItemLumberPass : MonoBehaviour
         _rewardValueText.text = _data.reward_value.ToString();
         _specialRewardValueText.text = _data.special_reward_value.ToString();
 
-        _rewardImage.sprite = SetRewardSprite(_data.reward_idx);
-        _specialRewardImage.sprite = SetRewardSprite(_data.special_reward_idx);
+        _rewardImage.sprite = Utills.SetRewardSprite(_data.reward_idx);
+        _specialRewardImage.sprite = Utills.SetRewardSprite(_data.special_reward_idx);
 
         SetLockImage();
         SetCheckImage();
@@ -172,16 +179,5 @@ public class ItemLumberPass : MonoBehaviour
     private void SetLevelLineFill(float current, float max)
     {
         _levelLineEnabledImage.fillAmount = current / max;
-    }
-    
-    private Sprite SetRewardSprite(int rewardIndex)
-    {
-        if (ResourceManager.Instance.RewardResourceDatas.RewardSpriteDic.TryGetValue((Reward_Type)rewardIndex, out var rewardSprite))
-        {
-            return rewardSprite;
-        }
-
-        Debug.LogError("RewardSprite is Null");
-        return null;
     }
 }

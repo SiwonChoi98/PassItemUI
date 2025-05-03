@@ -8,4 +8,6 @@ public class RewardResourceDatas : ScriptableObject
 {
     [SerializedDictionary("RewardType", "Sprite")]
     public SerializedDictionary<Reward_Type, Sprite> RewardSpriteDic;
+
+    public RewardObj RewardObj;
 }

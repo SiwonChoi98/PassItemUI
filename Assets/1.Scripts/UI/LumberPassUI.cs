@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Progress = UnityEditor.Progress;
+using DG.Tweening;
 
 public class LumberPassUI : MonoBehaviour
 {
@@ -16,6 +17,11 @@ public class LumberPassUI : MonoBehaviour
     [SerializeField] private Text _upgradeText;
     [SerializeField] private Text _LevelUpPointText;
 
+    [SerializeField] private RectTransform _gameMoneyRect;
+    [SerializeField] private RectTransform _gemRect;
+    [SerializeField] private RectTransform _upgradeRect;
+    [SerializeField] private RectTransform _levelUpPointRect;
+    
     private Action<CurrencyDataType> _onChangedCurrency;
     
     [Header("PassLevel")] 
@@ -38,6 +44,7 @@ public class LumberPassUI : MonoBehaviour
     private async void Start()
     {
         await UniTask.WaitUntil(() => DataManager.Instance != null && DataManager.Instance.UserData != null);
+        
         SpawnItem();
         SetContentHeight();
         SetLumberPassData();
@@ -53,7 +60,7 @@ public class LumberPassUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            DataManager.Instance.AddPass(PassDataType.EXP, 10);
+            DataManager.Instance.AddPass(PassDataType.EXP, 80);
         }
     }
 
@@ -142,6 +149,8 @@ public class LumberPassUI : MonoBehaviour
     private void SetLumberPassData()
     {
         UserData userData = DataManager.Instance.UserData;
+        if (userData == null)
+            return;
         
         _gameMoneyText.text = userData.CurrencyData.GameMoney.ToString();
         _gemText.text = userData.CurrencyData.Gem.ToString();
@@ -226,7 +235,7 @@ public class LumberPassUI : MonoBehaviour
         _itemList = new List<ItemLumberPass>();
 
         int itemCount = (int)(scrollRect.rect.height / _itemHeight) + 1 + 2;
-
+        
         for (int i = 0; i < itemCount; i++)
         {
             ItemLumberPass item = Instantiate(_baseItemLumberPassPrefab, _scrollRect.content);
@@ -234,6 +243,7 @@ public class LumberPassUI : MonoBehaviour
             
             _itemList.Add(item);
             SetItemData(item, i+1);
+            item.OnRewardSpawn += SpawnRewardObj;
         }
 
         _offset = _itemList.Count * _itemHeight;
@@ -294,9 +304,90 @@ public class LumberPassUI : MonoBehaviour
                 break;
         }
     }
-    
+
+    private void SpawnRewardObj(PassInfoData passInfoData, PassDataType passDataType, RectTransform spawnOrigin)
+    {
+        int spawnCount = GetSpawnCount(passInfoData, passDataType, out int rewardIndex);
+        Vector3 startOffset = GetStartOffset(passDataType);
+        Vector3 endPosition = GetRewardTargetPosition(rewardIndex);
+
+        for (int i = 0; i < spawnCount; i++)
+        {
+            SpawnSingleReward(rewardIndex, spawnOrigin.position + startOffset, endPosition);
+        }
+    }
+
+    private int GetSpawnCount(PassInfoData passInfoData, PassDataType passDataType, out int rewardIndex)
+    {
+        rewardIndex = 0;
+        switch (passDataType)
+        {
+            case PassDataType.REWARD_RECEIVED:
+                rewardIndex = passInfoData.reward_idx;
+                return passInfoData.reward_value / 10;
+
+            case PassDataType.SPECIALREWARD_RECEIVED:
+                rewardIndex = passInfoData.special_reward_idx;
+                return passInfoData.special_reward_value / 10;
+
+            default:
+                return 0;
+        }
+    }
+
+    private Vector3 GetStartOffset(PassDataType passDataType)
+    {
+        float offsetX = 200f;
+        return passDataType == PassDataType.REWARD_RECEIVED
+            ? Vector3.left * offsetX
+            : Vector3.right * offsetX;
+    }
+
+    private Vector3 GetRewardTargetPosition(int rewardIndex)
+    {
+        return rewardIndex switch
+        {
+            1 => _gameMoneyRect.position,
+            2 => _gemRect.position,
+            3 => _upgradeRect.position,
+            4 => _levelUpPointRect.position,
+            _ => Vector3.zero
+        };
+    }
+
+    private void SpawnSingleReward(int rewardIndex, Vector3 startPosition, Vector3 endPosition)
+    {
+        RewardObj prefab = ResourceManager.Instance.RewardResourceDatas.RewardObj;
+
+        BasePoolObject pooledObj = PoolManager.Instance.SpawnUI(PoolObjectType.CURRENCY_OBJ, prefab, transform);
+        RewardObj rewardObj = pooledObj as RewardObj;
+        if (rewardObj == null) return;
+
+        Vector3 randomOffset = new Vector3(
+            UnityEngine.Random.Range(-100f, 100f),
+            UnityEngine.Random.Range(-100f, 100f),
+            0f
+        );
+
+        RectTransform rect = rewardObj.GetComponent<RectTransform>();
+        rect.position = startPosition + randomOffset;
+
+        rewardObj.Initialize(Utills.SetRewardSprite(rewardIndex), endPosition);
+    }
+        
+
+    private void RemoveRewardObjListener()
+    {
+        foreach (var item in _itemList)
+        {
+            item.OnRewardSpawn -= SpawnRewardObj;
+        }
+        _itemList.Clear();
+    }
     private void OnDestroy()
     {
+        RemoveRewardObjListener();
+        
         _scrollRect.onValueChanged.RemoveListener(_ => OnScrollChanged());
         _premiumPassBtn.onClick.RemoveListener(Btn_BuyPremiumPass);
         _onChangedCurrency -= UpdateCurrency;
