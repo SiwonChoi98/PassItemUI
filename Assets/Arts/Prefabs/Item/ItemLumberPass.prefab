@@ -243,6 +243,7 @@ MonoBehaviour:
   _enabledLevelText: {fileID: 3299990862153486353}
   _levelLineEnabledImage: {fileID: 7932095926700255823}
   _currentLevelEnabled: {fileID: 2523277378049706725}
+  _levelEffectParent: {fileID: 620324567742586889}
   _rewardValueText: {fileID: 3274931648507244905}
   _rewardImage: {fileID: 3206885740731112916}
   _rewardRockImage: {fileID: 3244759551337201117}
@@ -386,7 +387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -3153,6 +3154,10 @@ PrefabInstance:
     - target: {fileID: 5565685655939293863, guid: f360f3b5d99862042ae3e15e2b6e89aa, type: 3}
       propertyPath: m_TargetGraphic
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5565685655939293863, guid: f360f3b5d99862042ae3e15e2b6e89aa, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5565685655939293863, guid: f360f3b5d99862042ae3e15e2b6e89aa, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size

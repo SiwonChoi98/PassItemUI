@@ -23,7 +23,7 @@ public class LumberPassUI : MonoBehaviour
     [SerializeField] private Text _passLevelText;
     [SerializeField] private Text _passExpText;
     [SerializeField] private Slider _passExpSlider;
-
+    
     [Header("PassTime")]
     [SerializeField] private Text _passRemainingTimeText;
     
@@ -76,7 +76,7 @@ public class LumberPassUI : MonoBehaviour
         {
             DataManager.Instance.OnChangedExp += SetPassLevelData;
             DataManager.Instance.OnChangedLevel += SetItemListImage;
-            DataManager.Instance.OnChangedLevel += LevelUpSound;
+            DataManager.Instance.OnChangedLevel += LevelUpFunction;
             DataManager.Instance.OnChangedPass += InitPassAction;
         }
 
@@ -92,7 +92,7 @@ public class LumberPassUI : MonoBehaviour
         {
             DataManager.Instance.OnChangedExp -= SetPassLevelData;
             DataManager.Instance.OnChangedLevel -= SetItemListImage;
-            DataManager.Instance.OnChangedLevel -= LevelUpSound;
+            DataManager.Instance.OnChangedLevel -= LevelUpFunction;
             DataManager.Instance.OnChangedPass -= InitPassAction;
         }
         
@@ -104,7 +104,7 @@ public class LumberPassUI : MonoBehaviour
 
     private async UniTaskVoid InitPassPosition()
     {
-        await UniTask.Delay(1000);
+        await UniTask.Delay(500); //0.5초 딜레이
         float targetY = (DataManager.Instance.UserData.PassData.PassLevel * _itemHeight) - _itemHeight;
         _scrollRect.content.DOAnchorPosY(targetY, 1f).SetEase(Ease.InOutQuad);
     }
@@ -138,6 +138,7 @@ public class LumberPassUI : MonoBehaviour
         _premiumPassBtn.gameObject.SetActive(false);
 
         SetItemListImage();
+        SpecialPassOpenLockImage();
         
         SoundManager.Instance.Play_SFX(SoundType.SPECIALPASSBUTTON, 0.5f);
         
@@ -173,6 +174,14 @@ public class LumberPassUI : MonoBehaviour
             _itemList[i].SetLevelLine();
             _itemList[i].SetLineLevelImage();
             _itemList[i].SetCheckImage();
+        }
+    }
+
+    private void SpecialPassOpenLockImage()
+    {
+        for (int i = 0; i < _itemList.Count; i++)
+        {
+            _itemList[i].SetLockImage();
         }
     }
 
@@ -404,8 +413,34 @@ public class LumberPassUI : MonoBehaviour
         _onChangedCurrency -= UpdateCurrency;
     }
 
-    private void LevelUpSound()
+    private void LevelUpFunction()
     {
         SoundManager.Instance.Play_SFX(SoundType.LEVELUP_SFX, 0.4f);
+        SpawnLevelUpEffect();
+    }
+
+    private void SpawnLevelUpEffect()
+    {
+        ItemLumberPass item = GetLevelItem();
+        if (item == null)
+            return;
+
+        BasePoolObject basePoolObject = ResourceManager.Instance.RewardResourceDatas.OpenObj;
+        BasePoolObject poolObject = PoolManager.Instance.SpawnUI(PoolObjectType.OPEN_OBJ_UI, basePoolObject, item.GetLevelEffectParent());
+        poolObject.transform.localPosition = item.GetLevelEffectParent().localPosition;
+    }
+
+    private ItemLumberPass GetLevelItem()
+    {
+        UserData userData = DataManager.Instance.UserData;
+        for (int i = 0; i < _itemList.Count; i++)
+        {
+            if (userData.PassData.PassLevel == _itemList[i].Data.pass_level)
+            {
+                return _itemList[i];
+            }
+        }
+
+        return null;
     }
 }

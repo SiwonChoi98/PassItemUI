@@ -14,6 +14,8 @@ public class ItemLumberPass : MonoBehaviour
     [SerializeField] private Image _levelLineEnabledImage;
     [SerializeField] private GameObject _currentLevelEnabled;
     
+    [SerializeField] private Transform _levelEffectParent;
+    
     [Header("Reward")]
     [SerializeField] private Text _rewardValueText;
     [SerializeField] private Image _rewardImage;
@@ -128,6 +130,7 @@ public class ItemLumberPass : MonoBehaviour
         SetLineLevelImage();
         SetLevelLine();
     }
+    
     public void SetLineLevelImage()
     {
         UserData userData = DataManager.Instance.UserData;
@@ -203,6 +206,8 @@ public class ItemLumberPass : MonoBehaviour
         }
     }
 
+    public Transform GetLevelEffectParent() => _levelEffectParent;
+    
     private void SetLevelLineFill(float current, float max)
     {
         _levelLineEnabledImage.fillAmount = current / max;
