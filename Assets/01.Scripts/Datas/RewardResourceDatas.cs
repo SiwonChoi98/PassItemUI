@@ -10,4 +10,5 @@ public class RewardResourceDatas : ScriptableObject
     public SerializedDictionary<Reward_Type, Sprite> RewardSpriteDic;
 
     public RewardObj RewardObj;
+    public BasePoolObject OpenObj;
 }

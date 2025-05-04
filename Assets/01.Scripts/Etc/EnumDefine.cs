@@ -14,6 +14,7 @@ public enum PoolObjectType
 {
     CURRENCYOBJ_UI = 1001, 
     NOTIPOPUP_UI = 1002,
+    OPEN_OBJ_UI = 1003,
 }
 
 public enum NotificationType

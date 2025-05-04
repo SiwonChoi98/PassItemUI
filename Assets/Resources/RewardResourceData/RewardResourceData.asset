@@ -23,3 +23,4 @@ MonoBehaviour:
     - Key: 4
       Value: {fileID: 21300000, guid: 7906777d1f224ee48b83e3fd2db90955, type: 3}
   RewardObj: {fileID: 7984806839536655940, guid: 8127cca2dd023f441b2e117d5e08ad67, type: 3}
+  OpenObj: {fileID: 6566134393562107092, guid: dee37df0308d22e4188d06a68445dd43, type: 3}
