@@ -48,7 +48,8 @@ public class LumberPassUI : MonoBehaviour
         _premiumPassBtn.onClick.AddListener(Btn_BuyPremiumPass);
 
         _onChangedCurrency += UpdateCurrency;
-        
+
+        InitPassPosition();
     }
     
     private void Update()
@@ -99,6 +100,12 @@ public class LumberPassUI : MonoBehaviour
         {
             PassManager.Instance.OnChangedPassTime -= UpdatePassRemainingTime;
         }
+    }
+
+    private void InitPassPosition()
+    {
+        float targetY = (DataManager.Instance.UserData.PassData.PassLevel * _itemHeight) - _itemHeight;
+        _scrollRect.content.DOAnchorPosY(targetY, 1f).SetEase(Ease.InOutQuad);
     }
     
     private void UpdatePassRemainingTime(DateTime resetTime)
