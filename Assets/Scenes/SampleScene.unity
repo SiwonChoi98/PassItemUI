@@ -1753,7 +1753,6 @@ MonoBehaviour:
   - {fileID: 14986683}
   - {fileID: 157601056}
   - {fileID: 895356241}
-  _isSFXVolume: 1
 --- !u!114 &1439697129 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3967410702301749628, guid: 0760734cfdfe75844bb90f09291d7305, type: 3}

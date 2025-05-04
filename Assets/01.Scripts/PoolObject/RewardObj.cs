@@ -30,6 +30,7 @@ public class RewardObj : BasePoolObject
         seq.Join(_itemImage.DOFade(0f, 0.3f));
         seq.OnComplete(() =>
         {
+            _itemImage.sprite = null;
             ReturnToPool();
         });
     }

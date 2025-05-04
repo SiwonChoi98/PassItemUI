@@ -26,6 +26,9 @@ public class PassManager : Singleton<PassManager>
         
         SetCycleTime();
         
+        //먼저 체크
+        CheckMissedReset();
+        
         UpdateNextResetTime();
         
         UpdateCycleRoutine().Forget();
@@ -84,6 +87,23 @@ public class PassManager : Singleton<PassManager>
         }
     }
 
+    private void CheckMissedReset()
+    {
+        if (!_isCycleValid)
+            return;
+
+        TimeSpan elapsed = DateTime.UtcNow - _fixedStartTime;
+        int cyclesPassed = Mathf.FloorToInt((float)(elapsed.TotalSeconds / _cycle.TotalSeconds));
+        DateTime lastResetTime = _fixedStartTime.AddSeconds(cyclesPassed * _cycle.TotalSeconds);
+
+        DateTime userLastResetTime = DataManager.Instance.UserData.PassData.LastPassResetTime;
+        if (userLastResetTime < lastResetTime)
+        {
+            ResetPassData();
+            Debug.Log("앱 꺼져있을 때 누락된 초기화 처리 완료");
+        }
+    }
+    
     private void UpdateRemainingTimeUI()
     {
         if (!_isCycleValid)
@@ -94,7 +114,7 @@ public class PassManager : Singleton<PassManager>
 
     private void ResetPassData()
     {
-        DataManager.Instance.InitPassData();
+        DataManager.Instance.InitPassData(_nextResetTime, _cycle);
         Debug.Log("패스 데이터가 초기화되었습니다.");
     }
     

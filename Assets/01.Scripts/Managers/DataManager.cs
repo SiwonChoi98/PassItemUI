@@ -132,7 +132,7 @@ public partial class DataManager
                 return false;
         }
     }
-    public void InitPassData()
+    public void InitPassData(DateTime nextResetTime, TimeSpan cycle)
     {
         _userData.PassData.IsSpecialPassEnabled = false;
         _userData.PassData.PassLevel = 1;
@@ -140,11 +140,12 @@ public partial class DataManager
         _userData.PassData.RewardsReceivedDic.Clear();
         _userData.PassData.SpecialRewardsReceivedDic.Clear();
         
+        _userData.PassData.LastPassResetTime = Utills.SafeSubtract(nextResetTime, cycle);
+        
         SaveUserData();
         
         OnChangedPass?.Invoke();
     }
-    
 
     private void AddPassLevel(int amount)
     {

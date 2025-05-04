@@ -16,11 +16,6 @@ public class LumberPassUI : MonoBehaviour
     [SerializeField] private Text _gemText;
     [SerializeField] private Text _upgradeText;
     [SerializeField] private Text _LevelUpPointText;
-
-    [SerializeField] private RectTransform _gameMoneyRect;
-    [SerializeField] private RectTransform _gemRect;
-    [SerializeField] private RectTransform _upgradeRect;
-    [SerializeField] private RectTransform _levelUpPointRect;
     
     private Action<CurrencyDataType> _onChangedCurrency;
     

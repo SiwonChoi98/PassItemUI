@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
@@ -32,4 +33,6 @@ public class PassData
     
     [JsonProperty]
     public Dictionary<int, bool> SpecialRewardsReceivedDic = new Dictionary<int, bool>();
+    
+    public DateTime LastPassResetTime = DateTime.UtcNow;
 }

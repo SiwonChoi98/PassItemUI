@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,5 +32,13 @@ public static class Utills
         }
 
         return null;
+    }
+    
+    public static DateTime SafeSubtract(DateTime time, TimeSpan span)
+    {
+        if (time.Ticks > span.Ticks)
+            return time - span;
+        else
+            return DateTime.UtcNow;
     }
 }
