@@ -49,7 +49,7 @@ public class LumberPassUI : MonoBehaviour
 
         _onChangedCurrency += UpdateCurrency;
 
-        InitPassPosition();
+        InitPassPosition().Forget();
     }
     
     private void Update()
@@ -102,8 +102,9 @@ public class LumberPassUI : MonoBehaviour
         }
     }
 
-    private void InitPassPosition()
+    private async UniTaskVoid InitPassPosition()
     {
+        await UniTask.Delay(1000);
         float targetY = (DataManager.Instance.UserData.PassData.PassLevel * _itemHeight) - _itemHeight;
         _scrollRect.content.DOAnchorPosY(targetY, 1f).SetEase(Ease.InOutQuad);
     }
