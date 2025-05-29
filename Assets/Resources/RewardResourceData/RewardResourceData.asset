@@ -15,12 +15,12 @@ MonoBehaviour:
   RewardSpriteDic:
     _serializedList:
     - Key: 1
-      Value: {fileID: 21300000, guid: c040bec1ae44b214fbc053d2cc025aa0, type: 3}
+      Value: {fileID: 21300000, guid: 32a910569006e6f4288aeb55d4088d8b, type: 3}
     - Key: 2
-      Value: {fileID: 21300000, guid: b7c7fac55f9625443b164b1408cbe36f, type: 3}
+      Value: {fileID: 21300000, guid: d51bf16180dfdf3418a9d16a2d857e6b, type: 3}
     - Key: 3
-      Value: {fileID: 21300000, guid: b0af570024e27ff498edd8731f23a557, type: 3}
+      Value: {fileID: 21300000, guid: 0a9348ff9de6b7c4db0399ea17e32017, type: 3}
     - Key: 4
-      Value: {fileID: 21300000, guid: 7906777d1f224ee48b83e3fd2db90955, type: 3}
+      Value: {fileID: 21300000, guid: 8fef4bbb630501a4aafaabdd9da48f64, type: 3}
   RewardObj: {fileID: 7984806839536655940, guid: 8127cca2dd023f441b2e117d5e08ad67, type: 3}
   OpenObj: {fileID: 6566134393562107092, guid: dee37df0308d22e4188d06a68445dd43, type: 3}
